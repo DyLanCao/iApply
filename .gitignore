@@ -4,7 +4,7 @@
 # Object files
 *.o
 *.ko
-*.swp
+*.sw*
 *.swo
 *.swn
 *.fuse*

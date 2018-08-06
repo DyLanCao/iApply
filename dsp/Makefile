@@ -2,9 +2,11 @@ CXX = g++
 
 SRCDIR=./
 CCFILES += \
+		$(SRCDIR)/echo.c \
 		$(SRCDIR)/main.c \
 
 HFILES += \
+		$(SRCDIR)/echo.h \
 
 LD_FLAGS         = -lm 
 
