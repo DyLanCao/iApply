@@ -1,0 +1,87 @@
+--- gcc-4.0.2/gcc/config/arm/arm.c	Thu Dec 15 15:13:55 2005
++++ gcc-4.0.2_patched/gcc/config/arm/arm.c	Thu Dec 15 14:33:29 2005
+@@ -85,6 +85,7 @@
+ static const char *output_multi_immediate (rtx *, const char *, const char *,
+ 					   int, HOST_WIDE_INT);
+ static void print_multi_reg (FILE *, const char *, int, int);
++static void print_multi_reg_except_exit (FILE *, const char *, int, int);
+ static const char *shift_op (rtx, HOST_WIDE_INT *);
+ static struct machine_function *arm_init_machine_status (void);
+ static int number_of_first_bit_set (int);
+@@ -7687,6 +7688,30 @@
+   fprintf (stream, "}\n");
+ }
+ 
++static void
++print_multi_reg_except_exit (FILE *stream, const char *instr, int reg, int mask)
++{
++  int i;
++  int not_first = FALSE;
++
++  fputc ('\t', stream);
++  asm_fprintf (stream, instr, reg);
++  fputs (", {", stream);
++
++  for (i = 0; i <= LAST_ARM_REGNUM; i++)
++    if (mask & (1 << i))
++      {
++	if (not_first)
++	  fprintf (stream, ", ");
++
++	asm_fprintf (stream, "%r", i);
++	not_first = TRUE;
++      }
++
++  fprintf (stream, "}^\n");
++}
++
++
+ 
+ /* Output a FLDMX instruction to STREAM.
+    BASE if the register containing the address.
+@@ -9330,7 +9355,10 @@
+ 	    asm_fprintf (f, "\twldrd\t%r, [%r], #8\n", reg, SP_REGNUM);
+ 
+       /* If we can, restore the LR into the PC.  */
+-      if (ARM_FUNC_TYPE (func_type) == ARM_FT_NORMAL
++      if ( (ARM_FUNC_TYPE (func_type) == ARM_FT_NORMAL
++	    || ARM_FUNC_TYPE (func_type) == ARM_FT_ISR
++	    || ARM_FUNC_TYPE (func_type) == ARM_FT_FIQ
++	    || ARM_FUNC_TYPE (func_type) == ARM_FT_EXCEPTION)
+ 	  && really_return
+ 	  && current_function_pretend_args_size == 0
+ 	  && saved_regs_mask & (1 << LR_REGNUM)
+@@ -9353,9 +9381,33 @@
+ 	       (i.e. "ldmfd sp!...").  We know that the stack pointer is
+ 	       in the list of registers and if we add writeback the
+ 	       instruction becomes UNPREDICTABLE.  */
++	  {
++	    if( (saved_regs_mask & (1 << PC_REGNUM))
++	      && (ARM_FUNC_TYPE (func_type) == ARM_FT_ISR
++	         || ARM_FUNC_TYPE (func_type) == ARM_FT_FIQ
++	         || ARM_FUNC_TYPE (func_type) == ARM_FT_EXCEPTION ))
++	    {
++	       print_multi_reg_except_exit (f, "ldmfd\t%r", SP_REGNUM, saved_regs_mask);
++	    }
++	    else
++	    {
+ 	    print_multi_reg (f, "ldmfd\t%r", SP_REGNUM, saved_regs_mask);
++	    }
++	  }
+ 	  else
++	  {
++	    if( (saved_regs_mask & (1 << PC_REGNUM))
++	      && (ARM_FUNC_TYPE (func_type) == ARM_FT_ISR
++	         || ARM_FUNC_TYPE (func_type) == ARM_FT_FIQ
++	         || ARM_FUNC_TYPE (func_type) == ARM_FT_EXCEPTION ))
++	    {
++	       print_multi_reg_except_exit (f, "ldmfd\t%r!", SP_REGNUM, saved_regs_mask);
++	    }
++	    else
++	    {
+ 	    print_multi_reg (f, "ldmfd\t%r!", SP_REGNUM, saved_regs_mask);
++	    }
++	  }
+ 	}
+ 
+       if (current_function_pretend_args_size)

@@ -1,0 +1,390 @@
+##############################################################################################
+#
+# Copyright 2005 Free Software Foundation, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+#
+# example for STM STR71x
+#
+
+source rcmdhelp.gdbscript
+
+#
+# jtagconnect
+#
+define jtagconnect
+	undisplay
+	if ($argc <= 0)
+		target remote :1234
+	else
+		target remote :$arg0
+	end
+	source str71x_env.gdbscript
+end
+document jtagconnect
+Connecting to remote jtag-ICE-server
+end
+
+#
+# jtagdisconnect
+#
+define jtagdisconnect
+	monitor NoMemMap
+	disconnect
+	undisplay
+end
+document jtagdisconnect
+Disconnecting from remote jtag-ICE-server
+(the server remains in running state.)
+end
+
+#
+# jtagterminate
+#
+define jtagterminate
+	monitor NoMemMap
+	detach
+	undisplay
+end
+document jtagterminate
+Disconnects and terminats the jtag-ICE-server session.
+end
+
+#
+# jtagdownload
+#
+define jtagdownload
+	if ($argc <= 0)
+		printf "missing downloadfile\n" 
+	else
+		load $arg0
+		# check bank 0
+		# tell server that we like to have messages printed to stderr
+		monitor FakeContinue = 1
+		monitor CheckFlash 0x40000000
+		# start the fake continue so gdb can handle the F packets
+		continue
+		# bring jtag-ICE-server back to normal debug mode
+		monitor FakeContinue = 0
+		monitor FlashState 0x40000000
+		
+		# check bank 1
+		# tell server that we like to have messages printed to stderr
+		monitor FakeContinue = 1
+		monitor CheckFlash 0x400C0000
+		# start the fake continue so gdb can handle the F packets
+		continue
+		# bring jtag-ICE-server back to normal debug mode
+		monitor FakeContinue = 0
+		monitor FlashState 0x400C0000
+
+		if ($argc == 1)
+			printf "no symbol file "
+		else
+			symbol-file $arg1
+			printf "symbol added "
+		end 
+		printf "download complete\n"
+	end
+end
+document jtagdownload
+jtagdownload downloadfile [symbolfile]
+-	Loads the file "downloadfile" into the jtag-ICE-server.
+-	(Only the server has the file data, not the ARM-target itself).
+-	Optional add symbol data to gdb (required for source level debugging)
+end
+
+#
+#	VerifyFlash baseaddress numberOfSectors
+#
+define jtagverifyflash
+	# tell server that we like to have messages printed to stderr
+	monitor FakeContinue = 1
+	if ($argc <= 0)
+		# Verify Bank 0
+		monitor VerifyFlash 0x40000000
+	else
+		if ($argc == 1)
+			monitor VerifyFlash $arg0 
+		else
+			monitor VerifyFlash $arg0 $arg1
+		end
+	end
+	# start the fake continue so gdb can handle the F packets
+	continue
+	# bring jtag-ICE-server back to normal debug mode
+	monitor FakeContinue = 0
+	if ($argc <= 0)
+		monitor FlashState 0x40000000
+		# Verify Bank 1, too
+		monitor FakeContinue = 1
+		monitor VerifyFlash 0x400C0000
+		continue
+		monitor FakeContinue = 0
+		monitor FlashState 0x400C0000
+	else
+		monitor FlashState $arg0
+	end
+end
+document jtagverifyflash
+Wrapper of rcmd function -- VerifyFlash baseaddress numberOfSectors
+end
+
+#
+#	CheckFlash baseaddress numberOfSectors
+#
+define jtagcheckflash
+	# tell server that we like to have messages printed to stderr
+	monitor FakeContinue = 1
+	if ($argc <= 0)
+		# Check Bank 0
+		monitor CheckFlash 0x40000000
+	else
+		if ($argc == 1)
+			monitor CheckFlash $arg0
+		else
+			monitor CheckFlash $arg0 $arg1
+		end
+	end
+	# start the fake continue so gdb can handle the F packets
+	continue
+	# bring jtag-ICE-server back to normal debug mode
+	monitor FakeContinue = 0
+	if ($argc <= 0)
+		monitor FlashState 0x40000000
+		# Check Bank 1, too
+		monitor FakeContinue = 1
+		monitor CheckFlash 0x400C0000
+		continue
+		monitor FakeContinue = 0
+		monitor FlashState 0x400C0000
+
+	else
+		monitor FlashState $arg0
+	end
+end
+document jtagcheckflash
+Wrapper of rcmd function -- CheckFlash baseaddress numberOfSectors
+end
+
+
+#
+#	ProgramFlash baseaddress numberOfSectors
+#
+define jtagprogramflash
+	# tell server that we like to have messages printed to stderr
+	monitor FakeContinue = 1
+	if ($argc <= 0)
+		# Program Bank 0
+		monitor ProgramFlash 0x40000000
+	else
+		if ($argc == 1)
+			monitor ProgramFlash $arg0 
+		else
+			monitor ProgramFlash $arg0 $arg1
+		end
+	end
+	# start the fake continue so gdb can handle the F packets
+	continue
+	# bring jtag-ICE-server back to normal debug mode
+	monitor FakeContinue = 0
+	if ($argc <= 0)
+		monitor FlashState 0x40000000
+		# Program Bank 1, too
+		monitor FakeContinue = 1
+		monitor ProgramFlash 0x400C0000
+		continue
+		monitor FakeContinue = 0
+		monitor FlashState 0x400C0000
+	else
+		monitor FlashState $arg0
+	end
+end
+document jtagprogramflash
+Wrapper of rcmd function -- ProgramFlash baseaddress numberOfSectors
+end
+
+#
+#	EraseFlash baseaddress numberOfSectors
+#
+define jtageraseflashonly
+	monitor InvalFlashWhileEraseing = 0
+	# tell server that we like to have messages printed to stderr
+	monitor FakeContinue = 1
+	if ($argc <= 0)
+		# Erase Bank 0
+		monitor EraseFlash 0x40000000
+	else
+		if ($argc == 1)
+			monitor EraseFlash $arg0
+		else
+			monitor EraseFlash $arg0 $arg1
+		end
+	end
+	# start the fake continue so gdb can handle the F packets
+	continue
+	# bring jtag-ICE-server back to normal debug mode
+	monitor FakeContinue = 0
+	if ($argc <= 0)
+		monitor FlashState 0x40000000
+		# Erase Bank 1, too
+		monitor FakeContinue = 1
+		monitor EraseFlash 0x400C0000
+		continue
+		monitor FakeContinue = 0
+		monitor FlashState 0x400C0000
+	else
+		monitor FlashState $arg0
+	end
+end
+document jtageraseflashonly
+Wrapper of rcmd function -- EraseFlash baseaddress numberOfSectors
+end
+
+#
+#	EraseFlash baseaddress numberOfSectors
+#
+define jtageraseandinvalflash
+	monitor InvalFlashWhileEraseing = 1
+	# tell server that we like to have messages printed to stderr
+	monitor FakeContinue = 1
+	if ($argc <= 0)
+		# Erase Bank 0
+		monitor EraseFlash 0x100000
+	else
+		if ($argc == 1)
+			monitor EraseFlash $arg0
+		else
+			monitor EraseFlash $arg0 $arg1
+		end
+	end
+	# start the fake continue so gdb can handle the F packets
+	continue
+	# bring jtag-ICE-server back to normal debug mode
+	monitor FakeContinue = 0
+	if ($argc <= 0)
+		monitor FlashState 0x100000
+		# Erase Bank 1, too
+		monitor FakeContinue = 1
+		monitor EraseFlash 0x400C0000
+		continue
+		monitor FakeContinue = 0
+		monitor FlashState 0x400C0000
+
+	else
+		monitor FlashState $arg0
+	end
+end
+document jtageraseandinvalflash
+Wrapper of rcmd function -- EraseFlash baseaddress numberOfSectors
+end
+
+
+#
+#	Interrupt = 0
+#--------------	0 -> disable Interrupt in step mode
+define jtagInterruptDisabledWhileInStepMode
+	monitor Interrupt = 0
+end
+document jtagInterruptDisabledWhileInStepMode
+Wrapper of rcmd function -- Interrupt = 0
+This disables the Interrupt while doing a gdb "step" or "next" command.
+end
+
+#
+#	Interrupt = 1
+#--------------	1 -> enable Interrupt in step mode
+define jtagInterruptEnabledWhileInStepMode
+	monitor Interrupt = 1
+end
+document jtagInterruptEnabledWhileInStepMode
+Wrapper of rcmd function -- Interrupt = 0
+This enables the Interrupt while doing a gdb "step" or "next" command.
+end
+
+#
+#	ShowMemMap
+#
+define jtagShowMemMap
+	# tell server that we like to have messages printed to stderr
+	monitor FakeContinue = 1
+
+	monitor MemMap
+	# start the fake continue so gdb can handle the F packets
+	continue
+	# bring jtag-ICE-server back to normal debug mode
+	monitor FakeContinue = 0
+end
+document jtagShowMemMap
+Wrapper of rcmd function -- MemMap
+Showing contens of MemMap
+end
+
+#
+#	NoMemMap
+#
+define jtagNoMemMap
+	monitor NoMemMap
+end
+document jtagNoMemMap
+Wrapper of rcmd function -- NoMemMap
+end
+
+#
+#	UseMemMap
+#
+define jtagUseMemMap
+	if ($argc <= 0)
+		printf "argument required\n"
+	else
+		monitor UseMemMap $arg0
+		SrcExtjtagResetMemMap
+	end
+end
+document jtagUseMemMap
+Wrapper of rcmd function -- UseMemMap
+end
+
+#
+#	Reset
+#
+define jtagReset
+	SrcExtjtagResetCPU
+	SrcExtjtagResetMemMap
+end
+document jtagReset
+Send Software Reset to CPU
+end
+
+#
+#	forceHWBreak = 1
+#
+define jtagForceHWBreakON
+	monitor forceHWBreak = 1
+end
+document jtagForceHWBreakON
+Wrapper of rcmd function -- forceHWBreak = 1
+end
+
+#
+#	forceHWBreak = 0
+#
+define jtagForceHWBreakOFF
+	monitor forceHWBreak = 0
+end
+document jtagForceHWBreakOFF
+Wrapper of rcmd function -- forceHWBreak = 0
+end
+

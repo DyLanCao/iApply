@@ -1,0 +1,202 @@
+##############################################################################################
+#
+# Copyright 2005 Free Software Foundation, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+#
+# example for STM STR71x
+#
+#
+#
+define SrcExtjtagResetCPU
+#	monitor cmd 0 # not yet working as expected
+	printf "Software Reset\n"
+
+	SrcExtjtagResetMemMap
+end
+document SrcExtjtagResetCPU
+	Source extension to generate Software Reset
+end
+
+define SrcExtjtagResetMemMap
+	# set SP register to "unreal" memory -> so we can access PC register via gdb $pc variable
+	monitor Register[13] = 0x80000100
+	# set PC to zero
+	monitor Register[15] = 0x0 
+	# set CPSR 
+	monitor Register[16] = 0xd3
+	# write dummy value into the "unreal" memory
+	set variable *0x80000000=0x80000100
+	# force rereading of registers
+	monitor FakeContinue = 1
+	continue
+	monitor FakeContinue = 0
+	# now we can change cprs too
+	set $cprs=0xD3
+end
+document SrcExtjtagResetMemMap
+	Source ext. Memory Map Reset
+end
+
+# This is the wrong place but our response to any monitor command (rcmd) will may take a while
+set remotetimeout 8
+
+#set remote memory-write-packet-size 1024
+#set remote memory-write-packet-size fixed
+#set remote memory-read-packet-size 1024
+#set remote memory-read-packet-size fixed
+
+# here is a definition of a Memory Map layout
+monitor MemMap.MaxNum		= 2
+monitor MemMap.MaxEntrys[0]	= 16
+monitor MemMap[0][0]		= rom      ,32, 0x0,         60 KByte	# Rom (before remap)
+monitor MemMap[0][1]		= ram      ,32, 0x20000000,  63 KByte	# OnChip RAM
+monitor MemMap[0][2]		= workspace,32, 0x2000FC00,   1 KByte	# OnChip RAM
+monitor MemMap[0][3]		= flash   ,164, 0x40000000, 256 KByte	# OnChip Flash Bank 0
+monitor MemMap[0][4]		= flash   ,164, 0x400C0000,  16 KByte	# OnChip Flash Bank 1
+monitor MemMap[0][5]		= sfa      ,32, 0x40100000,  24  Byte	# OnChip Flash controller
+monitor MemMap[0][6]		= ram      ,32, 0x60000000,  16 MByte	# External Memory CS0 (EMI)
+monitor MemMap[0][7]		= ram      ,32, 0x62000000,  16 MByte	# External Memory CS1 (EMI)
+monitor MemMap[0][8]		= ram      ,32, 0x64000000,  16 MByte	# External Memory CS2 (EMI)
+monitor MemMap[0][9]		= ram      ,32, 0x66000000,  16 MByte	# External Memory CS3 (EMI)
+monitor MemMap[0][10]		= ram      ,32, 0x6C000000,  16  Byte	# External Memory BCON0..3 (EMI)
+monitor MemMap[0][11]		= unreal   ,32, 0x80000000,   1 KByte	# pseudo stack to make gdb happy
+monitor MemMap[0][12]		= sfa      ,32, 0xA0000000,   1 KByte	# PRCCU
+monitor MemMap[0][13]		= sfa      ,32, 0xC0000000,  64 KByte	# APB1
+monitor MemMap[0][14]		= sfa      ,32, 0xE0000000,  64 KByte	# APB2
+monitor MemMap[0][15]		= sfa      ,32, 0xFFFFF800,   4 KByte	# EIC
+  
+monitor MemMap.MaxEntrys[1]	= 16
+monitor MemMap[0][0]		= ram      ,32, 0x0,         60 KByte	# Ram (after remap)
+monitor MemMap[0][1]		= ram      ,32, 0x20000000,  63 KByte	# OnChip RAM
+monitor MemMap[0][2]		= workspace,32, 0x2000FC00,   1 KByte	# OnChip RAM
+monitor MemMap[0][3]		= flash   ,164, 0x40000000, 256 KByte	# OnChip Flash Bank 0
+monitor MemMap[0][4]		= flash   ,164, 0x400C0000,  16 KByte	# OnChip Flash Bank 1
+monitor MemMap[0][5]		= sfa      ,32, 0x40100000,  24  Byte	# OnChip Flash controller
+monitor MemMap[0][6]		= ram      ,32, 0x60000000,  16 MByte	# External Memory CS0 (EMI)
+monitor MemMap[0][7]		= ram      ,32, 0x62000000,  16 MByte	# External Memory CS1 (EMI)
+monitor MemMap[0][8]		= ram      ,32, 0x64000000,  16 MByte	# External Memory CS2 (EMI)
+monitor MemMap[0][9]		= ram      ,32, 0x66000000,  16 MByte	# External Memory CS3 (EMI)
+monitor MemMap[0][10]		= ram      ,32, 0x6C000000,  16  Byte	# External Memory BCON0..3 (EMI)
+monitor MemMap[0][11]		= unreal   ,32, 0x80000000,   1 KByte	# pseudo stack to make gdb happy
+monitor MemMap[0][12]		= sfa      ,32, 0xA0000000,   1 KByte	# PRCCU
+monitor MemMap[0][13]		= sfa      ,32, 0xC0000000,  64 KByte	# APB1
+monitor MemMap[0][14]		= sfa      ,32, 0xE0000000,  64 KByte	# APB2
+monitor MemMap[0][15]		= sfa      ,32, 0xFFFFF800,   4 KByte	# EIC
+  
+# Define some command sequences
+monitor  CmdSequence.MaxNum		= 22
+
+# added by Radoslaw Szczygiel
+
+# Command sequence 20 is always "Off Peripherials sequence"
+# This may stop Peripherials before enter to gdb prompt
+# Not use sequence 0 for other possibilities
+monitor  CmdSequence.MaxEntrys[20]	= 2
+monitor  CmdSequence[20][0]		= 32, 0xc0000010 , 0x7FFF # stop modules (Clock Disabling for all APB1 peripherals)
+monitor  CmdSequence[20][1]		= 32, 0xe0000010 , 0x7FFF # stop modules (Clock Disabling for all APB2 peripherals)
+
+# Command sequence 21 is always "On Peripherials sequence"
+# This may start Peripherials after leave gdb prompt (stepping or continuing)
+# Not use sequence 1 for other possibilities
+monitor  CmdSequence.MaxEntrys[21]	= 2
+monitor  CmdSequence[21][0]		= 32, 0xc0000010 , 0 # start modules
+monitor  CmdSequence[21][1]		= 32, 0xe0000010 , 0 # start modules
+
+#
+# Command sequence 0: map 0 to internal ram
+#
+monitor  CmdSequence.MaxEntrys[0]	= 1
+monitor  CmdSequence[0][0]		= 32, 0xA0000050, 0x800A	# Internal RAM set to address 0x0.
+
+#
+# Command sequence 1: map 0 to flash
+#
+monitor  CmdSequence.MaxEntrys[1]	= 1
+monitor  CmdSequence[1][0]		= 32, 0xA0000050, 0x8008	# Internal Flash set to address 0x0.
+
+#
+# Command sequence 3: map 0 to external emi
+# set all CS lines high
+#
+monitor  CmdSequence.MaxEntrys[2]	= 5
+monitor  CmdSequence[2][0]		= 32, 0xA0000050, 0x800B	# External EMI set to address 0x0.
+monitor  CmdSequence[2][1]		= 32, 0xE0005000, 0x000F
+monitor  CmdSequence[2][2]		= 32, 0xE0005004, 0x000F
+monitor  CmdSequence[2][3]		= 32, 0xE0005008, 0x000F
+monitor  CmdSequence[2][4]		= 32, 0x6C000004, 0x8001
+
+#
+# EIC reset
+# EIC Base @ 0xFFFFF800
+#
+monitor  CmdSequence.MaxEntrys[3]	= 5
+monitor  CmdSequence[3][0]		= 32, 0xFFFFF800, 0x0		# EIC->ICR = 0 IRQ disabled; FIQ disabled
+monitor  CmdSequence[3][1]		= 32, 0xFFFFF820, 0x0		# EIC->IER = 0 All channels are disabled
+monitor  CmdSequence[3][2]		= 32, 0xFFFFF840, 0xFFFFFFFF	# EIC->IPR = 0xFFFFFFFF Clear all pending bits
+monitor  CmdSequence[3][3]		= 32, 0xFFFFF81C, 0x0c		# EIC->FIR = 0x0000000C Disable all FIQ channels interrupts and clear FIQ channels pending bits
+monitor  CmdSequence[3][4]		= 32, 0xFFFFF808, 0x0		# EIC->CIPR = 0x00000000 Set the current priority level to zero
+
+#
+# Clock PLL setup
+# RCCU base @ 0xA0000000
+#
+monitor  CmdSequence.MaxEntrys[4]	= 7
+monitor  CmdSequence[4][0]		= 16, 0xA0000008, 0xF808	# RCCU_RCLKSourceConfig (RCCU_CLOCK2) Select CLK2 as RCLK clock
+monitor  CmdSequence[4][1]		= 16, 0xA0000000, 0x0
+monitor  CmdSequence[4][2]		= 16, 0xA0000018, 0x07		# PLL OFF
+monitor  CmdSequence[4][3]		= 16, 0xA0000008, 0x7808	# CLK2 = CK = 4MHz
+monitor  CmdSequence[4][4]		= 16, 0xA0000044, 0x0102	# Configure FCLK (APB1 fast peripherals PCLK1) = RCLK /2 and Configure PCLK (APB2 peripherals PCLK2) = RCLK /4
+monitor  CmdSequence[4][5]		= 16, 0xA0000040, 0x0		# RCCU_MCLKConfig (RCCU_DEFAULT) Configure MCLK clock for the CPU, RCCU_DEFAULT = RCLK /1
+monitor  CmdSequence[4][6]		= 16, 0xA0000018, 0x61		# RCCU_PLL1Config (RCCU_PLL1_Mul_24, RCCU_Div_2) Configure the PLL1 = CLK2 * 24 / 2
+
+#
+# Reset APB1/APB2 peripherals
+#
+monitor  CmdSequence.MaxEntrys[5]	= 4
+monitor  CmdSequence[5][0]		= 32, 0xC0000010, 0x27FB	# Clock Disabling for all APB1 peripherals
+monitor  CmdSequence[5][1]		= 32, 0xE0000010, 0x7FDD	# Clock Disabling for all APB2 peripherals
+monitor  CmdSequence[5][2]		= 32, 0xC0000014, 0x27FB	# Keep all APB1 peripherals under reset
+monitor  CmdSequence[5][3]		= 32, 0xE0000014, 0x7FDD	# Keep all APB2 peripherals under reset
+
+
+
+# tell that we would like to use the top of our RAM as a workspace (if no extra is given)
+monitor modeWorkspace = 1
+
+# activate the Map
+
+monitor UseMemMap[0]
+
+# excecute command sequence: ..
+# exec cmd 3 -> EIC reset
+monitor cmd 3
+# exec cmd 4 -> Clock PLL setup
+monitor cmd 4
+# exec cmd 6 -> Reset APB1/APB2 peripherals
+monitor cmd 5
+	
+monitor SysInfo
+
+
+#
+#set step-mode on
+#undisplay
+#display/x $pc
+#display/i $pc
+
+
+SrcExtjtagResetMemMap
+

@@ -1,0 +1,171 @@
+##############################################################################################
+#
+# Copyright 2005 Free Software Foundation, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+#
+# example for Atmel AT91SAM7S64
+#
+#
+#
+define SrcExtjtagResetCPU
+	monitor cmd 0 # not yet working as expected
+	printf "Software Reset\n"
+	monitor FakeContinue = 1
+	monitor FakeContinue = 0
+	monitor cmd 5		
+	monitor cmd 1		
+	monitor cmd 2
+	printf "start main osc\n"
+	monitor FakeContinue = 1
+	monitor FakeContinue = 0
+	monitor cmd 3
+	monitor SAM7frequence = 48000
+	monitor FakeContinue = 1
+	monitor FakeContinue = 0
+	monitor cmd 4
+	printf "MCK runnig\n"
+	end
+document SrcExtjtagResetCPU
+	Source extension to generate Software Reset
+end
+
+define SrcExtjtagResetMemMap
+	# set SP register to "unreal" memory -> so we can access PC register via gdb $pc variable
+	monitor Register[13] = 0xC0000100
+	# set PC to zero
+	monitor Register[15] = 0x0 
+	# write dummy value into the "unreal" memory
+	set variable *0xC0000000=0xC0000100
+	# force rereading of registers
+	monitor FakeContinue = 1
+	continue
+	monitor FakeContinue = 0
+	# now we can change cprs too
+	set $cprs=0xD3
+end
+document SrcExtjtagResetMemMap
+	Source ext. Memory Map Reset
+end
+
+# This is the wrong place but our response to any monitor command (rcmd) will may take a while
+set remotetimeout 8
+
+# here is a definition of a Memory Map layout
+monitor MemMap.MaxNum		= 2
+monitor MemMap.MaxEntrys[0]	= 16
+monitor MemMap[0][0]		= rom	,32, 0x0, 	 64 KByte	# Rom (before remap)
+monitor MemMap[0][1]		= rom	,32, 0x00100000, 64 KByte	# OnChip Flash
+monitor MemMap[0][2]		= ram	,32, 0x00200000, 16 KByte	# OnChip RAM
+monitor MemMap[0][3]		= unreal,32, 0xC0000000, 1 KByte	# pseudo stack to make gdb happy
+monitor MemMap[0][4]		= sfa	,32, 0xFFFFf000, 1536 Byte	# AIC,DBGU,PIOA
+monitor MemMap[0][5]		= sfa	,32, 0xFFFFfc00, 272 Byte	# PMC,RSTC
+monitor MemMap[0][6]		= sfa	,32, 0xFFFFfd20, 48 Byte	# RTT,PIT,WDT
+monitor MemMap[0][7]		= sfa	,32, 0xFFFFfd60, 4 Byte		# VREG
+monitor MemMap[0][8]		= sfa	,32, 0xFFFFff00, 256 Byte	# MC
+
+monitor MemMap.MaxEntrys[1]	= 16
+monitor MemMap[1][0]		= ram	,32, 0x0, 	 64 KByte	# Ram (after remap)
+monitor MemMap[1][1]		= flash	,132, 0x00100000, 64 KByte	# OnChip Flash
+monitor MemMap[1][2]		= ram	,32, 0x00200000, 16 KByte	# OnChip RAM
+monitor MemMap[1][3]		= unreal,32, 0xC0000000, 1 KByte	# pseudo stack to make gdb happy
+monitor MemMap[1][4]		= sfa	,32, 0xFFFFf000, 1536 Byte	# AIC,DBGU,PIOA
+monitor MemMap[1][5]		= sfa	,32, 0xFFFFfc00, 272 Byte	# PMC,RSTC
+monitor MemMap[1][6]		= sfa	,32, 0xFFFFfd20, 48 Byte	# RTT,PIT,WDT
+monitor MemMap[1][7]		= sfa	,32, 0xFFFFfd60, 4 Byte		# VREG
+monitor MemMap[1][8]		= sfa	,32, 0xFFFFff00, 256 Byte	# MC
+
+# Define some command sequences
+monitor  CmdSequence.MaxNum		= 10
+
+# reset
+monitor  CmdSequence.MaxEntrys[0]	= 1
+monitor  CmdSequence[0][0]		= 32, 0xFFFFfd00 , 0xA5000005		# reset periphery and CPU (but do not lower NRST Pin)
+
+# watchdog disable
+monitor  CmdSequence.MaxEntrys[1]	= 2
+monitor  CmdSequence[1][0]		= 32, 0xFFFFfd44 , 0x30008000		# 0x3FFF8fff
+
+# assume we have a 18 MHz quarz
+# Enabling the Main Oscillator ;Start up time = 6 * 8 / SCK
+monitor  CmdSequence.MaxEntrys[2]	= 1
+monitor  CmdSequence[2][0]		= 32, 0xFFFFFC20 , 0x601		# 
+
+# set Fout = 96 MHz
+# Setting PLL and divider (range=80MHz-160MHz noUSB ..)
+monitor  CmdSequence.MaxEntrys[3]	= 1
+monitor  CmdSequence[3][0]		= 32, 0xFFFFFC2C , 0x00191C05		# AT91SAM7S_EK_DEV_BOARD: div=5 Mul=25+1 count=28
+#monitor  CmdSequence[3][0]		= 32, 0xFFFFFC2C , 0x00271C05		# AT91SAM7S_P64_DEV_BOARD: div=5 Mul=39+1 count=28
+
+# activate MCK = 48 MHz
+# Selection of Master Clock and Processor Clock (PLL / 2)
+monitor  CmdSequence.MaxEntrys[4]	= 2
+monitor  CmdSequence[4][0]		= 32, 0xFFFFFC30 , 0x4			# 
+monitor  CmdSequence[4][1]		= 32, 0xFFFFFC30 , 0x7			# 
+
+# reset and disable Debugunit
+monitor  CmdSequence.MaxEntrys[5]	= 1
+monitor  CmdSequence[5][0]		= 32, 0xFFFFF200 , 0x10C		# 
+
+# Disable PDC Transfer
+monitor  CmdSequence.MaxEntrys[6]	= 7
+monitor  CmdSequence[6][0]		= 32, 0xfffd8120 , 0x202		# ADC
+monitor  CmdSequence[6][1]		= 32, 0xffffF320 , 0x202		# dbgu
+monitor  CmdSequence[6][2]		= 32, 0xfffe0120 , 0x202		# SPI
+monitor  CmdSequence[6][3]		= 32, 0xfffd4120 , 0x202		# SSC
+monitor  CmdSequence[6][4]		= 32, 0xfffc0120 , 0x202		# uart0
+monitor  CmdSequence[6][5]		= 32, 0xfffc4120 , 0x202		# uart1
+
+
+# tell that we would like to use the top of our RAM as a workspace (if no extra is given)
+monitor modeWorkspace = 1
+
+# activate the Map
+monitor UseMemMap[1]
+
+# excecute command sequence: reset = 0
+#monitor cmd 0
+
+#monitor cmd 1		# watchdog disable
+#monitor cmd 2		# start main osc
+
+# we insert a delay before we send the next command
+#printf "start main osc\n"
+#monitor FakeContinue = 1
+#monitor FakeContinue = 0
+
+#monitor cmd 3		# config PLL
+
+# next small delay before PLL command
+# set default Clock frequence before startup
+monitor SAM7frequence = 48000
+#monitor FakeContinue = 1
+#monitor FakeContinue = 0
+
+# send PLL command
+#monitor cmd 4		# set PLL as MCK signal
+#printf "MCK runnig\n"
+monitor SysInfo
+
+
+#
+#set step-mode on
+#undisplay
+#display/x $pc
+#display/i $pc
+
+
+SrcExtjtagResetMemMap
+

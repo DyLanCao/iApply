@@ -1,0 +1,1129 @@
+I global pref_set_defaults {}
+I global set_bg_colors {}
+I global r_setcolors {. -background #cccccc}
+I global r_setcolors {. -highlightbackground #cccccc}
+I global r_setcolors {. -textbackground #ffffff}
+I global r_setcolors {. -troughcolor #bab7ba}
+I global r_setcolors {. -activebackground #bab7ba}
+I global gdbtk_locate_main {}
+I ManagedWin startup {Got active list {ManagedWin::open Console} {ManagedWin::open RegWin} {ManagedWin::open SrcWin}}
+I ManagedWin _open {Console }
+I ManagedWin _create {win=console args=}
+I EmbeddedWin constructor {}
+I Console constructor {}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I ManagedWin _open {RegWin }
+I ManagedWin _create {win=regwin args=}
+I GDBWin constructor {}
+I EmbeddedWin constructor {}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I RegWin _layout_table {}
+I RegWin _load_prefs {}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I ManagedWin _open {SrcWin }
+I ManagedWin _create {win=srcwin args=}
+I GDBWin constructor {}
+I TopLevelWin constructor .srcwin0.srcwin
+I SrcWin constructor {}
+I SrcBar create_plugin_menu {No plugins configured, go remove the PlugIn menu...}
+I SrcBar _set_runstop normal
+I GDBToolBar set_class_state {Enable list is: Control disabled  Trace disabled  Other normal  Active normal  Inactive disabled  Attach normal  Detach disabled }
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBWin constructor {}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} {} {} 0 0x00000000 0x00000000 {}}
+I SrcWin location {running=0 tag= linespec={} {} {} 0 0x00000000 0x00000000 {}}
+I SrcWin location {not running: name= funcname= line=0}
+I global gdbtk_locate_main {}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I ManagedWin find SrcWin
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBToolBar set_class_state {Enable list is: Control disabled  Trace disabled  Other normal  Active normal  Inactive disabled  Attach normal  Detach disabled }
+I ManagedWin find SrcWin
+I SrcWin _name {.srcwin0.srcwin.container.pane1.childsite.con.name }
+I SrcTextWin clear_file {In clear_file}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I ManagedWin find SrcWin
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBToolBar set_class_state {Enable list is: Control disabled  Trace disabled  Other normal  Active normal  Inactive disabled  Attach normal  Detach disabled }
+I ManagedWin find SrcWin
+I SrcWin _name {.srcwin0.srcwin.container.pane1.childsite.con.name }
+I SrcTextWin clear_file {In clear_file}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I ManagedWin find SrcWin
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBToolBar set_class_state {Enable list is: Control disabled  Trace disabled  Other normal  Active normal  Inactive disabled  Attach normal  Detach disabled }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "set_variable" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I SrcTextWin set_variable {Set hook got called with remotetimeout 8}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "set_variable" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "set_variable" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "set_variable" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "set_variable" to "::.srcwin0.srcwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} _vector_table_start {} 0 0x00000000 0x00000000 {}}
+I SrcWin location {running=0 tag= linespec={} _vector_table_start {} 0 0x00000000 0x00000000 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+W SrcTextWin FillSource {no source file; switch to assembly}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set ASSEMBLY
+I SrcTextWin LoadFromCache {LoadFromCache t 0x00000000 A}
+I SrcTextWin LoadFromCache name=0x00000000
+I SrcTextWin LoadFromCache pane=pane1
+I SrcTextWin FillAssembly {address range is 0x00000000 0x00000004}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+W global gdbtk_signal {caught signal SIGTSTP Stopped (user)}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} _vector_table_start {} 0 0x00000000 0x00000000 {}}
+I SrcWin location {running=1 tag= linespec={} _vector_table_start {} 0 0x00000000 0x00000000 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+W global gdbtk_signal {caught signal SIGINT Interrupt}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 44 0x0010061e 0x0010061e {}}
+I SrcWin location {running=1 tag= linespec=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 44 0x0010061e 0x0010061e {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set SOURCE
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I SrcTextWin _mtime_changed {no mtime. resetting to zero}
+I SrcTextWin LoadFile {/usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c  SOURCE}
+I SrcTextWin LoadFromCache {LoadFromCache t /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c S}
+I SrcTextWin LoadFromCache name=/usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c
+I SrcTextWin LoadFromCache pane=pane2
+I SrcTextWin LoadFile {READING /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I SrcWin _name {.srcwin0.srcwin.container.pane1.childsite.con.name sam7_irq.c}
+I SrcWin location {running=1 tag=BROWSE_TAG linespec=sam7_irq.c {} /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 0 0 0 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I SrcTextWin _mtime_changed {no mtime. resetting to zero}
+I SrcTextWin LoadFile {/usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c SOURCE}
+I SrcTextWin LoadFromCache {LoadFromCache t /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c S}
+I SrcTextWin LoadFromCache name=/usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c
+I SrcTextWin LoadFromCache pane=pane3
+I SrcTextWin LoadFile {READING /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.srcwin0.srcwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin location {running=1 tag= linespec=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} _vector_table_start {} 0 0x00000002 0x00000002 {}}
+I SrcWin location {running=1 tag= linespec={} _vector_table_start {} 0 0x00000002 0x00000002 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+W SrcTextWin FillSource {no source file; switch to assembly}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set ASSEMBLY
+I SrcTextWin LoadFromCache {LoadFromCache t 0x00000002 A}
+I SrcTextWin LoadFromCache name=0x00000002
+I SrcTextWin LoadFromCache pane=pane4
+I SrcTextWin FillAssembly {address range is 0x00000000 0x00000004}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set SOURCE
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I SrcWin _name {.srcwin0.srcwin.container.pane1.childsite.con.name }
+I SrcTextWin clear_file {In clear_file}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I ManagedWin find SrcWin
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+W global gdbtk_signal {caught signal SIGINT Interrupt}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_except.c exceptionUndef /usr/home/thomas/work/jtag/example/at91sam7/sam7_except.c 62 0x00100474 0x00100474 {}}
+I SrcWin location {running=1 tag= linespec=sam7_except.c exceptionUndef /usr/home/thomas/work/jtag/example/at91sam7/sam7_except.c 62 0x00100474 0x00100474 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set SOURCE
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I SrcTextWin _mtime_changed {no mtime. resetting to zero}
+I SrcTextWin LoadFile {/usr/home/thomas/work/jtag/example/at91sam7/sam7_except.c  SOURCE}
+I SrcTextWin LoadFromCache {LoadFromCache t /usr/home/thomas/work/jtag/example/at91sam7/sam7_except.c S}
+I SrcTextWin LoadFromCache name=/usr/home/thomas/work/jtag/example/at91sam7/sam7_except.c
+I SrcTextWin LoadFromCache pane=pane1
+I SrcTextWin LoadFile {READING /usr/home/thomas/work/jtag/example/at91sam7/sam7_except.c}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} start {} 0 0x00100050 0x00100050 {}}
+I SrcWin location {running=1 tag= linespec={} start {} 0 0x00100050 0x00100050 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+W SrcTextWin FillSource {no source file; switch to assembly}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set ASSEMBLY
+I SrcTextWin LoadFromCache {LoadFromCache t 0x00100050 A}
+I SrcTextWin LoadFromCache name=0x00100050
+I SrcTextWin LoadFromCache pane=pane2
+I SrcTextWin FillAssembly {address range is 0x00100050 0x0010012c}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set SOURCE
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I SrcWin _name {.srcwin0.srcwin.container.pane1.childsite.con.name }
+I SrcTextWin clear_file {In clear_file}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I ManagedWin find SrcWin
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} start {} 0 0x00100054 0x00100054 {}}
+I SrcWin location {running=1 tag= linespec={} start {} 0 0x00100054 0x00100054 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+W SrcTextWin FillSource {no source file; switch to assembly}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set ASSEMBLY
+I SrcTextWin LoadFromCache {LoadFromCache t 0x00100054 A}
+I SrcTextWin LoadFromCache name=0x00100054
+I SrcTextWin LoadFromCache pane=pane1
+I SrcTextWin FillAssembly {address range is 0x00100050 0x0010012c}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} start {} 0 0x00100058 0x00100058 {}}
+I SrcWin location {running=1 tag= linespec={} start {} 0 0x00100058 0x00100058 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+W global gdbtk_signal {caught signal SIGTRAP Trace/breakpoint trap}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 36 0x00100610 0x00100610 {}}
+I SrcWin location {running=1 tag= linespec=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 36 0x00100610 0x00100610 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set SOURCE
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I SrcTextWin LoadFile {/usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c  SOURCE}
+I SrcTextWin LoadFromCache {LoadFromCache t /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c S}
+I SrcTextWin LoadFromCache name=/usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c
+I SrcTextWin LoadFromCache pane=pane2
+I SrcTextWin LoadFile {READING /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+W global gdbtk_signal {caught signal SIGINT Interrupt}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 44 0x0010061e 0x0010061e {}}
+I SrcWin location {running=1 tag= linespec=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 44 0x0010061e 0x0010061e {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+W global gdbtk_signal {caught signal SIGINT Interrupt}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 44 0x0010061c 0x0010061c {}}
+I SrcWin location {running=1 tag= linespec=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 44 0x0010061c 0x0010061c {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+W global gdbtk_signal {caught signal SIGTSTP Stopped (user)}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} _vector_table_start {} 0 0x00000000 0x00000000 {}}
+I SrcWin location {running=1 tag= linespec={} _vector_table_start {} 0 0x00000000 0x00000000 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+W SrcTextWin FillSource {no source file; switch to assembly}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set ASSEMBLY
+I SrcTextWin LoadFromCache {LoadFromCache t 0x00000000 A}
+I SrcTextWin LoadFromCache name=0x00000000
+I SrcTextWin LoadFromCache pane=pane3
+I SrcTextWin FillAssembly {address range is 0x00000000 0x00000004}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} _vector_table_start {} 0 0x00000002 0x00000002 {}}
+I SrcWin location {running=1 tag= linespec={} _vector_table_start {} 0 0x00000002 0x00000002 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} Exception_Undef {} 0 0x00000004 0x00000004 {}}
+I SrcWin location {running=1 tag= linespec={} Exception_Undef {} 0 0x00000004 0x00000004 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I SrcTextWin LoadFromCache {LoadFromCache t 0x00000004 A}
+I SrcTextWin LoadFromCache name=0x00000004
+I SrcTextWin LoadFromCache pane=pane4
+I SrcTextWin FillAssembly {address range is 0x00000004 0x00000008}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+W global gdbtk_signal {caught signal SIGTSTP Stopped (user)}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} _vector_table_start {} 0 0x00000000 0x00000000 {}}
+I SrcWin location {running=1 tag= linespec={} _vector_table_start {} 0 0x00000000 0x00000000 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I SrcTextWin LoadFromCache {LoadFromCache t 0x00000000 A}
+I SrcTextWin LoadFromCache {READING CACHE 0x00000000,A,->pane3}
+I SrcTextWin FillAssembly {LoadFromCache returned 0}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} start {} 0 0x00100050 0x00100050 {}}
+I SrcWin location {running=1 tag= linespec={} start {} 0 0x00100050 0x00100050 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I SrcTextWin LoadFromCache {LoadFromCache t 0x00100050 A}
+I SrcTextWin LoadFromCache name=0x00100050
+I SrcTextWin LoadFromCache pane=pane5
+I SrcTextWin FillAssembly {address range is 0x00100050 0x0010012c}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin location {running=1 tag= linespec=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I SrcTextWin mode_set SOURCE
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I SrcTextWin LoadFile {/usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c  SOURCE}
+I SrcTextWin LoadFromCache {LoadFromCache t /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c S}
+I SrcTextWin LoadFromCache name=/usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c
+I SrcTextWin LoadFromCache pane=pane6
+I SrcTextWin LoadFile {READING /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin location {running=1 tag= linespec=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin location {running=1 tag= linespec=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin location {running=1 tag= linespec=sam7_irq.c timer0_irq /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c 50 0x00100644 0x00100644 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "breakpoint" to "::.srcwin0.srcwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+W global gdbtk_signal {caught signal SIGINT Interrupt}
+I ManagedWin find SrcWin
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 44 0x00100620 0x00100620 {}}
+I SrcWin location {running=1 tag= linespec=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 44 0x00100620 0x00100620 {}}
+I SrcWin _set_state {gdb_running l=0 d=0 r=1}
+I SrcTextWin LoadFile {/usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c /usr/home/thomas/work/jtag/example/at91sam7/sam7_irq.c SOURCE}
+I SrcTextWin LoadFromCache {LoadFromCache t /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c S}
+I SrcTextWin LoadFromCache {READING CACHE /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c,S,->pane2}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Other disabled  Trace disabled  Active disabled  Inactive disabled  Attach disabled  Detach disabled}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "busy" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop running}
+I SrcBar _set_runstop running
+I GDBToolBar set_class_state {Enable list is: Control disabled  Trace disabled  Other normal  Active normal  Inactive disabled  Attach normal  Detach disabled }
+I SrcWin _set_state {gdb_running l=0 d=0 r=0}
+I GDBToolBar set_class_state {Enable list is: Control disabled  Trace disabled  Other normal  Active normal  Inactive disabled  Attach normal  Detach disabled }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.regwin0.regwin"}
+I RegWin update {}
+I RegWin update {END REGISTER UPDATE CALLBACK}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "update" to "::.srcwin0.srcwin"}
+I SrcWin choose_and_update {chose window ::.srcwin0.srcwin}
+I SrcWin _update {loc={} _vector_table_start {} 0 0x00000000 0x00100620 {}}
+I SrcWin location {running=0 tag= linespec={} _vector_table_start {} 0 0x00000000 0x00100620 {}}
+I SrcWin location {not running: name= funcname=_vector_table_start line=0}
+I global gdbtk_locate_main {}
+I SrcWin location {new linespec=sam7_example.c main /usr/home/thomas/work/jtag/example/at91sam7/sam7_example.c 38 0x00100612 0x00100620 {}}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane2.childsite.con"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.console0.console"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.regwin0.regwin"}
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin.container.pane0.childsite.con"}
+I GDBToolBar set_class_state {Enable list is: Trace disabled  Control normal  Other normal  Active normal  Inactive disabled  Attach disabled  Detach normal }
+I GDBEventHandler GDBEventHandler::dispatch {posting event "idle" to "::.srcwin0.srcwin"}
+I SrcBar {} {configuring runstop normal}
+I SrcBar _set_runstop normal
+I GDBToolBar set_class_state {Enable list is: Control disabled  Trace disabled  Other normal  Active normal  Inactive disabled  Attach normal  Detach disabled }
+I global pref_save {pref_save /usr/home/thomas/.gdbtkinit}
+I EmbeddedWin destructor {}
+I RegWin destructor {}
+I EmbeddedWin destructor {}
+I GDBWin destructor {}
+I GDBWin destructor {}
+I SrcWin destructor {}
+I TopLevelWin destructor {}

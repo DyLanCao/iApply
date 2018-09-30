@@ -1,0 +1,114 @@
+##############################################################################################
+#
+# Copyright 2005 Free Software Foundation, Inc.
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# 
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# 
+# Written by Thomas Klein <ThRKlein@sf.net>, 2005.
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+#
+# example for Philips LPC2106
+#
+
+# This is the wrong place but our response to any monitor command (rcmd) will may take a while
+set remotetimeout 8
+
+# here is a definition of a Memory Map layout
+monitor MemMap.MaxNum		= 2
+monitor MemMap.MaxEntrys[0]	= 64
+monitor MemMap[0][0]		= rom	,32, 0x0, 	 128 KByte	# Rom
+monitor MemMap[0][1]		= sfa	,32, 0x3fff8000, 36 Byte	# Philips LPC-memory controler
+monitor MemMap[0][2]		= ram	,32, 0x40000000, 63 KByte	# OnChip SRAM
+monitor MemMap[0][3]		= work	,32, 0x4000fc00, 1024 Byte	# Workspace at top of SRAM
+#monitor MemMap[0][2]		= ram	,32, 0x40000000, 65024 Byte	# OnChip SRAM
+#monitor MemMap[0][3]		= work	,32, 0x4000fe00, 512 Byte	# Workspace at top of SRAM
+monitor MemMap[0][4]		= rom	,32, 0x7FFFe000, 8 KByte	# Rom (Boot Code mirror of Flash)
+monitor MemMap[0][5]		= unreal,32, 0xC0000000, 1 KByte	# pseudo stack to make gdb happy
+monitor MemMap[0][6]		= sfa	,32, 0xE0000000, 2 MByte	# Philips LPC VPB Peripheral
+monitor MemMap[0][7]		= sfa	,32, 0xFFE00000, 2 MByte	# Philips LPC AHB Peripheral
+
+monitor MemMap.MaxEntrys[1]	= 64
+monitor MemMap[1][0]		= flash	,128, 0x0, 	 128 KByte	# Philips LPC-OnChip Flash
+monitor MemMap[1][1]		= sfa	,32, 0x3fff8000, 36 Byte	# Philips LPC-memory controler
+monitor MemMap[1][2]		= ram	,32, 0x40000000, 64 KByte	# OnChip SRAM
+monitor MemMap[1][3]		= rom	,32, 0x7FFFe000, 8 KByte	# Rom (Boot Code mirror of Flash)
+monitor MemMap[1][4]		= unreal,32, 0xC0000000, 1 KByte	# pseudo stack to make gdb happy
+monitor MemMap[1][5]		= sfa	,32, 0xE0000000, 2 MByte	# Philips LPC VPB Peripheral
+monitor MemMap[1][6]		= sfa	,32, 0xFFFFF000, 576 Byte	# Philips LPC AHB-VIC Peripheral
+
+# Define some command sequences
+monitor  CmdSequence.MaxNum		= 4
+
+# Boot init
+monitor  CmdSequence.MaxEntrys[0]	= 3
+monitor  CmdSequence[0][0]		= 32, 0x3fff8000 , 0xFFF0FF32		# part ID of LPC2106
+monitor  CmdSequence[0][1]		= 32, 0x3fff8024 , 0xFFFFFFFF		# default mask
+monitor  CmdSequence[0][2]		= 32, 0xe01fc040 , 0			# Map 64 Bytes of boot sector (0x7FFFE000 or 0x1E000) to addrss 0x0
+
+# LPC MEMMAP = 1 (Application Flash / User Flash Mode)
+monitor  CmdSequence.MaxEntrys[1]	= 1
+monitor  CmdSequence[1][0]		= 32, 0xe01fc040 , 1			# Map 64 Bytes of first flash sector to addrss 0x0
+
+# LPC MEMMAP = 2 (Application RAM / User RAM Mode)
+monitor  CmdSequence.MaxEntrys[2]	= 1
+monitor  CmdSequence[2][0]		= 32, 0xe01fc040 , 2			# Map 64 Bytes of first buildin SRAM addres to addrss 0x0
+
+# LPC MEMMAP = 0 (Boot Flash Mode)
+monitor  CmdSequence.MaxEntrys[3]	= 1
+monitor  CmdSequence[3][0]		= 32, 0xe01fc040 , 0			# Map 64 Bytes of boot sector (0x7FFFE000 or 0x1E000) to addrss 0x0
+
+
+# tell that we would like to use the top of our RAM as a workspace (if no extra is given)
+monitor modeWorkspace = 1
+
+# activate the Map
+monitor UseMemMap[1]
+
+# excecute command sequence: MEMMAP = 1
+monitor cmd 1
+
+# set default Clock frequence
+monitor LPCfrequence = 14745
+
+#
+#set step-mode on
+#undisplay
+#display/x $pc
+#display/i $pc
+
+monitor SysInfo
+
+# set SP register to "unreal" memory -> so we can access PC register via gdb $pc variable
+monitor Register[13] = 0xC0000100
+# write dummy value into the "unreal" memory
+set variable *0xC0000000=0xC0000100
+# force rereading of registers
+monitor FakeContinue = 1
+continue
+monitor FakeContinue = 0
+

@@ -1,0 +1,26 @@
+
+
+- Xscale -
+JTAG Tools is a software package which enables working with JTAG-aware (IEEE 1149.1) hardware devices (parts) and boards through JTAG adapter.
+http://openwince.sourceforge.net/jtag/
+-- October 10, 2003
+
+GDB ICE for ARM7TDMI 	
+Hardware + Software to interface GDB with one ARM7TDMI CPU thru its JTAG port
+http://sourceforge.net/projects/gdbice/
+-- July 10, 2000
+
+jtag-arm9 	
+JTAG interface for ARM9 processors. 
+http://sourceforge.net/projects/jtag-arm9/
+-- September 26, 2001
+
+GDB Stub for ARMs JTAG interface 	
+GDB Remote Stub Backend for debugging an embedded ARM system via JTAG common hardware debug interface. Communication is done via standard TCP/IP GDB Remote Serial Protocol. 
+http://sourceforge.net/projects/gdb-jtag-arm/
+based on jtag-arm9 -- March 14, 2005
+
+jtagpack 	
+JTAG base library, ARM7TDMI and MIPS debugger stubs for GDB. Extendable architecture to add JTAG device drivers, debuggers, and custom JTAG applications. 
+http://sourceforge.net/projects/jtagpack/
+-- April 19, 2005
