@@ -1,0 +1,130 @@
+#
+# Copyright 2005,2006 Free Software Foundation, Inc.
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# 
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# 
+# Written by Thomas Klein <ThRKlein@sf.net>, 2005,2006.
+#
+#
+
+define rcmd
+	printf "use \"monitor\" to send a rcmd to the remote target\n"
+end
+document rcmd
+monitor rcmd
+- ASSIGN comands:
+-	MemMap.MaxNum                 = ..
+-	MemMap.MaxEntrys[MapNum]      = ..
+-	MemMap[MapNum][Entry]         = MemType, BusSize, BaseAddress, AddressLength
+--------------	MemType -> cache,flash,io,ram,sfa,workspace,applicationflash,unreal or delete
+--------------	BusSize -> 8,16,32 [or 128,132,164 for special on chip Flash controlers]
+----------------------------- 128 -> Philips @ LPC21xx
+----------------------------- 132 -> Atmel   @ At91SAM7
+----------------------------- 164 -> STM     @ STR71x
+-	CmdSequence.MaxNum            = ..
+-	CmdSequence.MaxEntrys[CmdNum] = ..
+-	CmdSequence[CmdNum][Entry]    = BusSize, Addr, Value
+-------------- 	BusSize -> 8,16,32
+--------------  Addr    -> [0x0 .. 0xFFFFFFFF] This is the Address of the special function area (SFA)
+--------------  Value   -> [0x0 .. 0xFFFFFFFF] To do a write only operation
+--------------                                 or
+--------------  Value   -> Read                To do a read only operation
+-	CmdSequence.Bind[CmdNum]      = StartPeriphery 
+-	CmdSequence.Bind[CmdNum]      = StopPeriphery
+-	CmdSequence.Bind[CmdNum]      = ResetCPU
+-	Register[RegNum]              = ..
+--------------  RegNum  -> [0..15] for r0..r15 and 16 for CPSR
+-	Interrupt	              = ..
+--------------	0 -> disable Interrupt in step mode
+--------------	1 -> enable   - " -
+-	modeMCLK                      = ..
+--------------	0 -> low speed MCLK
+--------------	x -> linger factor to next debug mode command after a system speed command
+-	modeFLASH                     = ..
+--------------	0 -> low speed FLASH Download with completion check
+--------------	1 -> low speed FLASH Download without completion check
+--------------	2 -> faster speed FLASH Download with completion check
+--------------	3 -> faster speed FLASH Download without completion check
+-	InvalFlashWhileEraseing       = ..
+--------------	0 -> keep cached memory as is
+--------------	1 -> invalidate cached memory
+-	ForceCheckInvalidSector       = .. 
+--------------	0 -> skip check of currently invalid cache flash memory 
+--------------	1 -> check even invalidate cached flash memory (assuming all data is 0xFF)
+-	FakeContinue                  = ..
+--------------	0 -> disable fake_continue_mode
+--------------	1 -> enable fake_continue_mode
+-	modeWorkspace                 = ..
+--------------	0 -> workspace is only used if it is defined inside of the MemMap 
+--------------	1 -> if not defined in MemMap use Top of RAM as workspace too
+--------------	2 -> if not defined in MemMap use Bottom of RAM as workspace too
+-	forceHWBreak                  = ..
+--------------	0 -> do not force
+--------------	1 -> force setting Hardware beakpoint, even if the address is placed in RAM
+-	forceTempHWBreakAtMain        = ..
+--------------	0 -> do not force
+--------------	1 -> force setting Hardware beakpoint at symbol main
+--------------	     This will be the only present breakpoint. 
+--------------	     After hit, forceTempHWBreakAtMain = 0 and other breakpoints will be allowed.
+-	LPCfrequence                  = .. 
+--------------    -> CPU ckock frequency in kHz used by Philips LPC 21xx and LPC 22xx types
+-	SAM7frequence                 = ..
+--------------    -> CPU ckock frequency in kHz
+-	DbgMask                       = ..
+--------------    -> Mask to enable debugmessages at server side
+--------------    0x0002 -> DBG_LEVEL_JTAG_TAP
+--------------    0x0004 -> DBG_LEVEL_JTAG_INSTR		
+--------------    0x0008 -> DBG_LEVEL_JTAG_ICERT		
+--------------    0x0010 -> DBG_LEVEL_JTAG_ARM_LOW		
+--------------    0x0020 -> DBG_LEVEL_JTAG_ARM		
+--------------    0x0040 -> DBG_LEVEL_GDB_ARM_INFO_LOW	
+--------------    0x0080 -> DBG_LEVEL_GDB_ARM_INFO		
+--------------    0x0100 -> DBG_LEVEL_GDB_ARM_WARN		
+--------------    0x0400 -> DBG_LEVEL_GDB_ARM_ERROR
+-	verbose                       = .. 
+--------------    0 -> be less verbose (in fake_continue_mode)
+--------------    1 -> be more verbose (in fake_continue_mode)
+- FUNCTION commands:
+-	Cmd[sequenceNumber]
+-	UseMemMap[mapNumber]
+-	NoMemMap
+-	Restart
+-	Delay[msec]
+-	ProgramFlash baseaddress numberOfSectors
+-	VerifyFlash baseaddress numberOfSectors
+-	CheckFlash baseaddress numberOfSectors
+-	EraseFlash baseaddress numberOfSectors
+-	LpcGenVectorCheckSum
+- Info:
+-	FlashState
+-	SysInfo
+- Show Variables:
+-	MemMap
+-	CmdSequence[sequenceNumber][entryNumber]
+-	CmdSequence.Bind
+-	Interrupt
+-	modeMCLK
+-	modeFLASH
+-	modeWorkspace
+-	InvalFlashWhileEraseing
+-	ForceCheckInvalidSector
+-	forceHWBreak
+-	forceTempHWBreakAtMain
+-	LPCfrequence
+-	SAM7frequence
+-	DbgMask
+-	verbose
+end
+

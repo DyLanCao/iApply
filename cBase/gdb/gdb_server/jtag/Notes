@@ -1,0 +1,62 @@
+
+(2005-09-02)
+Notes: Intital snapshot version
+
+(2005-10-16)
+Changes: 
+- Speed up Remote Printf 
+- fix Wiggler driver 
+- use DBGRQ to enter Debug state
+
+(2005-11-01)
+Changes: 
+- fix cygwin NT "swaped" portaddress and value in lowlevel oub function 
+- fix wrong breakpoint handling after load 
+- modify using gettimeofday for timeout in AMD Flash
+
+(2005-12-16)
+Changes: 
+- increase size of BUFMAX from 400 Byte to 16KByte
+- fix bug Remote Printf
+- reduce time off useless bussy waits (to be more cooperative at cygwin platform)
+- add VerboseLevel for remote Printf (defaults to LESS_VERBOSE)
+    reduce amount of Printf messages while doing Flash callbacks
+    (behaviour is changeable using variable "verbose")
+- fix wrong breakpoint handling after load (next try)
+- add temorary breakpoint at symbol "main"; issued after gdb command "symbol-file"
+    (behaviour is changeable using variable "forceTempHWBreakAtMain")
+- add monitor command "CmdSequence.Bind[#NUMBER] = StopPeriphery"
+    to bind a specific command sequence, which will be called when entering debug mode
+    (requested by Radoslaw Szczygiel)
+- add monitor command "CmdSequence.Bind[#NUMBER] = StartPeriphery"
+    to bind a specific command sequence, which will be called when leaving debug mode
+    (requested by Radoslaw Szczygiel)
+- modify using gettimeofday for timeout in more modules
+- new defines: GRANT_SRESET_TIMEOUT SETTLE_SYSTEM_TIMEOUT
+- add tap_probe; make an early check if we are able to access the parallel port or not
+- merge experimental driver for the Amontec Chameleon POD (written by Radoslaw Szczygiel)
+- modify t_arm_atmelflash (insert additional delay)
+- modify skip check of current unknown/invalidate flash memory
+    (behaviour is changeable using variable "ForceCheckInvalidSector")
+
+(2006-01-29)
+Changes:
+- use one single wrapper to bind all drivers together
+- add commandline option "driver" to select the required driver
+- add list of driver to usage info
+- add command line option "rstgrant" and "rstsettle"
+- merge test programs into server
+- add command line option "iotest" and "testjtag"
+- add GNU - Copyright info
+- minor chnages to embedded AT91SAM7 Flash support functions
+- add support for embedded Str71x Flash
+- change poll flags for Linux. Now using POLLIN and POLLOUT instad of POLLRDNORM and POLLWRNORM.
+- add remote command Restart
+- add remote command Delay
+- add read sequence instruction (value extractable by requesting "CmdSequence"
+- add example for Str71x
+- fix minor bug in IceRT (remove jtag_eos - instr. while checking state)
+- remove the not working FASTER_IO stuff
+- modify tap_hard_reset
+- add gdb_invalidate_Rom_Buffer at symbol-file load or Restart
+

@@ -1,0 +1,564 @@
+# JTAG-GDB Server for ARM
+#
+# Copyright (C) 2005
+#  
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# 
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+
+
+  WARNING !!!!!!
+
+
+Using this kind of JTAG-GDB Server is very risky.
+In fact is it very likely that the JTAG-GDB server will damage parts of your
+hardware and/or your software.
+
+>> For example:
+>> - You send a command to rise CPU pin to a high level, 
+>>   but this will immediately destroy your CPU-core or parts of periphery.
+>> - You have set an on chip flag that disables any more access to the machine
+>> - You erase parts of a Flash
+>> - Using of a wrong or miss configured line driver can damage the target
+>>   machine
+>> - The order which device to power on or off might be important and may depend
+>>   on line driver and target platform
+>> - various software bugs can set your target and/or your host machine into 
+>>   an unpredictable state
+>> - If you're connecting other devices or machines with the machine that is 
+>>   hosting the JTAG-GDB Server they can get damaged, too and/or they can
+>>   damage the hosting machine. 
+>>   (e.g. Neither the JTAG-GDB server nor gdb itself is prevented against
+>>         attacks from the internet side.)
+>> - .. etc
+
+# Note: I'm a hardware engineer. 
+#       So I'm not afraid to get damaged devices; since I'm able to repair the
+#       devices I've killed before. 
+#       And; Yes I've already killed i386 PC and ARM-embedded machines and
+#       repaired those; And in case I wasn't able to repair it, I know people
+#       who would help me to do so.
+
+Since you're knowing that a lot can go wrong you should isolate a probe as match
+as possible. You better treat the embedded ARM target, the JTAG-GDB Server and 
+gdb itself as one bigger probe that have to run at a standalone development platform.
+
+This is not a game, and it will never give fun to you.
+
+This should be a tool, one day. But it isn't yet.
+
+When it is working some day, it might look like this.
+
+
+The "JTAG-GDB server" is a program for integrating the ARM-Embedded ICE logic with 
+the GNU-Debugger GDB.
+This program is running at a host system (for example an i386 PC) and it is directly 
+(or an extra Level Shifter/Line Driver) connected with the ARM Embedded ICE logic of 
+the target platform using the JTAG interface.
+At the other side, the server has to understand GDB's own remote debug protocol 
+which is transported over ether a RS232 or a TCP/IP link (including the 
+loopback interface so that the debugger and the server can live at the same machine).
+
+The host system can be any embedded CPU platform that has an direct port to emulate 
+the standard JTAG signals. 
+For example the host platform can be standard PC with a parallel IO using a 
+Level Shifter/Line Driver. These drivers can also be standard device like 
+Altera Byteblaster, Xilinx DLC, Lattice ISPDLC, Macraigor Wiggler etc 
+or your own tinker solution. 
+
+The target machine can be any ARM CPU with JTAG and embedded ICE logic.
+
+The first stage of the server will start with limited features 
+Host Architecture: Standard ix86 PC
+Operation System: Unix (FreeBSD, Cygwin)
+Host Interface: TCP/IP
+Target Machine: ARM7TDMI (little endian versions)
+Target Interface: Parallel port driver
+
+# establish physical connection
+
+  +--------+            +-------+         +-----------+        +-----+
+  | ARM    | JTAG-Cable | phys. | LPT-Port|           | TCP/IP |     |
+  | target +------------+ Cable +---------+ gdbserver +--------+ GDB |
+  | board  |            | Driver|         |           |        |     |
+  +--------+            +-------+         +-----------+        +-----+
+
+at ARM target is switched power off
+connect JTAG-Cable of the physical cable driver with the ARM target
+connect cable driver with host with JTAG-GDB Server
+start the JTAG-GDB Server at the host machine.
+at ARM target switched power on now
+start gdb
+
+# The ARM traget will be controlled by gdb
+# First you need to be connected via TCP/IP e.g.
+
+target remote :1234
+
+# Before anything can be done you have to setup the gdbserver.
+# All setup and all changes of internal states of the gdbserver are be done via 
+# GDB's rcmd.
+# To send a rcmd you must type the keyword "monitor" at GDB's command line 
+# interface.
+#
+# Setup
+# Set up memory map layout of ARM target board.
+# It is possible to deal with different versions of memory maps.
+# For example if we want two version of the same memory map.
+
+monitor MemMap.MaxNum       = 2
+monitor MemMap.MaxEntrys[0] = 3
+monitor MemMap.MaxEntrys[1] = 3
+monitor MemMap[0][0]        = rom,    8, 0x00000000,  8 KByte
+monitor MemMap[0][1]        = rom,   16, 0x00010000,  8 KByte
+monitor MemMap[0][2]        = io,    32, 0xFFFE0000, 16 KByte
+monitor MemMap[1][0]        = flash,  8, 0x00000000,  8 KByte
+monitor MemMap[1][1]        = ram,   16, 0x00010000,  8 KByte
+monitor MemMap[1][2]        = sfa,   32, 0xFFFE0000, 16 KByte
+
+# Each entry in the map containing:
+#    type of memory, bus size, base address and its length.
+# supported memory types are:
+# rom       --- read only memory
+# flash     --- programmable with special command sequences
+# ram       --- read and writeable memory
+# cache     --- (reserved e.g. to invalidate it on go)
+# io        --- to make clear that the debugger never access it directly
+# sfa       --- special function area (write only e.g. to configure special 
+#               on chip register)
+# workspace --- optional area for GDB (e.g. to program a flash)
+#
+# supported bus sizes are 8, 16, 32 or a special case
+# Special cases are embedded flash controllers here a value bigger 
+# than 32 describes the kind of controller
+#
+# To activate the desired memory map we send (assuming it is the second one):
+
+monitor UseMemMap[1]
+
+# Define a sequence of commands (e.g. to setup a SDRAM device).
+# A sequence entry containing the bus size, address and its value.
+
+monitor CmdSequence.MaxNum       = 1
+monitor CmdSequence.MaxEntrys[0] = 3
+monitor CmdSequence[0][0]        = 32, 0xFFFE0008, 0x0
+monitor CmdSequence[0][1]        =  8, 0xFFFE0010, 0xf0
+monitor CmdSequence[0][2]        =  8, 0xFFFE0011, 0x0f
+
+# To start this sequence send:
+
+monitor Cmd[0]
+
+# To load program data (e.g. at file named "HEXFILE") into gdb 
+# and the memory maps of the gdbserver use:
+
+load HEXFILE
+
+# To check if we must program a Flash at address 0x0 or not use:
+# (But info output apears only at server side)
+
+monitor VerifyFlash 0x0
+
+# Since the transaction may take a while we can do the same.
+# (Now we got some output at gdb side too.)
+
+monitor FakeContinue = 1
+monitor VerifyFlash 0x0
+continue
+monitor FakeContinue = 0
+monitor FlashState
+
+# If we deside to prorgam the first sector of the Flash we send.
+
+monitor ProgramFlash 0x0 1
+
+# Here the first parameter "0x0" is the sector address and 
+# the second parameter "1" give the number of sectors to be programed.
+# To be be sure that programming succeeds we may verify the flash again.
+#
+# To do a real high level debugging GDB needs the debug symbols.
+
+symbol-file ELF_DATA_FILE
+
+# Depending which kind of platform and ARM core is used additional commands
+# have to be send to the target. 
+# Now you can start debugging the ARM target.
+
+# Before you really can start debugging some work has to be done.
+# Extract the JTAG-GDB Server sources with 
+# "tar -xyf" at UNIX or with "tar -xjf" at CYGWIN
+
+tar -xyf jtag_gdbserver.tar.bz2
+
+# The project is in an early state. Treat all functions as untested yet.
+# So expect that there are plenty of bugs in the source.
+# Study the sources carefully and make sure you understand what's going on
+# there, since YOU are the only one that will be able to fix the bugs.
+# (Really, I wasn't able to find and eliminate them.)
+# In case that you did not understand what's going on here.
+# It's not a shame to exit this project here and it might be a wise decision
+# to do so. 
+# And it's not your fault. It's mine, since I've made the sources not readable
+# enough (Yes, I was to lazy to make a better documentation. Sorry about that.)
+#
+# modul overview
+
+  +-------------------------------------------------------------------+
+  |                                                                   |
+  |                         gdbserver                                 |
+  |                                                                   |
+  |    +--------------------------------------------------------------+
+  |    |                                                              |
+  |    |                      gdbstub                                 |
+  |    |                                                              |
+  |    |          +---------+     +-------------------------+---------+
+  |    |          |         |     |                         |         |
+  |    |          | gdbstub |     |         gdbstub         |gdbstub  |
+  |    |          |  break  |     |          rcmd           |callback |
+  |    |          |         |     |                         |         |
+  |    |          |         |     +-------+----------+------+---------+
+  |    |          |         |     | SFA   |          |                |
+  |    |          |         |     |cmd seq|          |                |
+  |    |          |         |     +-------+          |                |
+  |    |          |         |     |                  |                |
+  |    |          |         |     |   memory mmap    |    arm flash   |
+  |    |          |         |     |                  |                |
+  |    |          |    +----+-----+------------+-----+-----+----------+
+  |    |          |    |      memory           |  memory   |          |
+  |    |          |    |    read/write         | workspace | jt flash |
+  +----+----+-----+----+-----------------------+-----------+----------+
+  |         |                ARM - core - access                      |
+  |         +---------------------------------------------------------+
+  |         |                JTAG intr.                               |
+  |         +---------------------------------------------------------+
+  | TCP/IP  |                TAP ( Wrapper )                          |
+  |         +-+-+-+-+-------------------------------------------------+
+  |         | | | | |        TAP ( driver )                           |
+  |         +-+-+-+-+-------------------------------------------------+
+  |         | | | | |        raw - IO (via LPT)                       |
+  +---------+-+-+-+-+-------------------------------------------------+
+
+
+#
+# low level routines to access the raw JTAG-TAP signal lines (TCK,TMS,TDI,TDO)
+#
+# - jt_io.h           --- hardware IO
+#	device_on(); device_off(); device_disable();
+#	raw_Tout(); raw_Tin();
+# - jt_direct_io.c    --- grant accress to hardware
+#	ioperm() - if libioperm did not exists
+#
+# - jt_raw_out_test.c --- simple test routine 
+#	to check if raw functions are working or not
+
+#
+# next higher level JTAG routines
+#
+# - jt_tap.h          --- walk through TAP contoller
+# - jt_tap.c
+#	tap_reset();tap_start();tap_stop();
+#	tap_idle();tap_instr();tap_data();
+#	tap_discover_chain()
+# - jt_instr.h        --- walk through Jtag - chains
+# - jt_instr.c
+#	jtag_reset();jtag_start();
+#	jtag_eos();jtag_send_instr();jtag_exchange_data();
+#	jtag_identify_devices();
+# - jt_arm.h          --- ARM7TDMI core access
+# - jt_arm.c
+#	jtag_arm_ReadCpuRegs();jtag_arm_WriteCpuRegs();jtag_arm_DumpCPUregs();
+#	jtag_arm_ExitDebug();jtag_arm_Step();
+#	jtag_arm_ReadWordMemory();jtag_arm_ReadWord();
+#	jtag_arm_ReadHalfword();jtag_arm_ReadByte();
+#	jtag_arm_WriteMemoryBuf();jtag_arm_WriteWord();
+#	jtag_arm_WriteHalfword();jtag_arm_WriteByte();
+# - jt_arm_support.c
+#	jtag_supp_int2bitstr_MSB_First();jtag_supp_int2bitstr_LSB_First();
+#	jtag_supp_bitstr2int_LSB_First();jtag_supp_bitstr2int_MSB_First();
+#	jtag_arm_verify();jtag_arm_set_chain();jtag_arm_mov_chain1_data();
+#	is_arm_store_instr();is_thumb_store_instr(); ..
+# - jt_arm_iceRT.c
+#	jtag_arm_IceRT_RegRead();jtag_arm_IceRT_RegWrite();
+#	jtag_arm_ShowAllIceRT_Regs();
+#	jtag_arm_PollDbgState();jtag_arm_StopRunningProgram();
+#	jtag_arm_IceRT_version();
+#	jtag_arm_Put..BreakPoint();
+# - jt_flash.h       --- support of different Flash
+#                    algorithem (using the jt_arm - ARM core access)
+# - jt_flash_info.c
+#	jt_flash_create_sector_info()
+# - jt_flash_info_amd.c
+#	jt_amdflashGetInfoByte(); jt_amdflashGetInfoHalfword();
+#	jt_amdflashGetInfoWord();
+# - jt_flash_info_atmel.c
+#	jt_atmelflashGetInfo();
+# - jt_flash_info_intel.c
+#	jt_intelflashGetInfoByte(); ..
+# - jt_flash_info_philips.c
+#	jt_philipsflashGetInfo();
+# - jt_flash_amd.c
+#	jt_amdflashEraseSector..();jt_amdflashProg..()
+# - jt_flash_intel.c
+#	jt_intelflashUnlockSector..();
+#	jt_intelflashEraseSector..();
+#	jt_intelflashProg..();
+# - jt_flash_philips.c
+#	jt_philipsflashGenMask();
+#
+# - jt_jtag_test.c --- simple test (should be build by yourself)
+
+# 
+# high level GDB server stub
+# 
+# - arm_gdbstub.c
+# - arm_gdbstub_break.c
+# - arm_gdbstub_callback.c
+# - arm_gdbstub_rcmd.c
+# - arm_memory_mmap.c
+# - arm_memory_workspace.c
+# - arm_memory_read.c
+# - arm_memory_write.c
+# - arm_sfa_cmdseq.c
+#
+# workspace flash support functions
+# - arm_flash_read.c
+# - arm_flash_verify.c
+# - arm_flash_check.c
+# - arm_flash_erase.c
+# - arm_flash_program.c
+# - arm_flash_amd.c
+# - arm_flash_atmel.c
+# - arm_flash_philips.c
+#
+# target routines running at workspace (ARM - program)
+# - t_arm_dcc_read_mem.c
+# - t_arm_dcc_write_mem.c
+# - t_arm_dcc_check_flash.c
+# - t_arm_amdflash_8.c
+# - t_arm_amdflash_16.c
+# - t_arm_amdflash_32.c
+# - t_arm_atmelflash.c
+# - t_arm_philipsflash.c
+
+#
+# main Program
+#
+# - arm_gdbserver.c
+#
+
+#
+# environment
+#
+
+# we need binutils and gdb
+# The latest version of binutils and version gdb 6.4 should work
+# I'm doing an experimental work at gdb and insight.
+# So here is a CVS-snapshot version with some extra patches within remote,
+# cli and gdbtk's tcl/tk library are included.
+# I've update to current CVS-snapshot of tcl/tk (version 8.5 alpha), 
+# itcl/itk (version 3.3) and iwidgets (version 4.0.2)
+# I've also patched libgui to be able to work with the updated package.
+# Now we can be sure having the latest bugs, and some more (oops).
+# To reduce the size of the tarball all testsuites and all machine depended
+# stuff other than ARM machines are striped away
+
+tar -xyf armUtil.tar.bz2
+
+# Make sure that you can live with the modification I've made.
+# Note the patches are dropped by gdb but I like them.
+# - My argument counter and the one from gdb still differ within the cli stuff.
+#   see: cli-cmds.c, cli-script.h and cli-script.c
+# - add argument $argRcmd to extract an integer number of the last "monitor" response.
+# - change null_file_write in ui-file.c (speedup)
+# - the insight library has now some extensions
+#   compare e.g. /usr/local/share/insight1.0 with gdbtk/library
+# - to make sure that this did not corrupt an existing insight version
+#   the corresponding build scripts (Makefile.in configure ..) are modified, too
+#   so the modified version lives in /usr/local/share/insight1.0.tcltk85
+# - the libgui is incompatible with the original one
+#   so the modified version lives in /usr/local/share/insight1.0.tcltk85/gui
+# - some patches to be able to compile under cygwin with mingw are added
+#   (binutils and gdb like to see the real cygwin-gcc
+#   while tcl/tk like to see the mingw-gcc with win32 api)
+# Remember: using this "patched" sources is done at your own risk
+# Maybe you decide not to use this, this is OK since gdb 6.4 should work, too.
+
+mkdir buildBinutilsAndGdb
+cd buildBinutilsAndGdb
+../src/configure  --target=arm-elf --disable-nls
+gmake
+sudo gmake install
+cd ../
+
+# Note: 
+# I've compiled this at FreeBSD machine running with 1GHz. 
+# This cost about 20 minutes.
+# I've also compiled this at Windows 98 with CYGWIN at the same machine.
+# It is recomended to use a newer snapshot of cygwin1.dll 
+# (now less than 2 houres and without reboots).
+# You might use the configure switch --disable-werror too.
+  
+
+# you need gcc as well
+# version 3.4.4 and version 4.0.2 seems to have a problem with 
+# _attribute__ ((interrupt ("IRQ")))
+# I've add a patch to fix this (I hope)
+
+tar -xf gcc-4.0.2.tar
+cd gcc-4.0.2
+mkdir buildGcc
+cd buildGcc
+../gcc-4.0.2/configure  --target=arm-elf \
+--enable-languages=c --disable-threads --disable-nls \
+--without-headers --without-libs
+gmake
+sudo gmake install
+cd ../..
+
+
+# after you're having a working cross compiler environment 
+# 
+
+cd
+ jtag
+
+# edit Makefile if required
+#
+# jtag_gdbserver.exe
+#
+
+gmake 
+
+# Now you can do a cable test WITHOUT the target board.
+# -- never connect it !!  --
+# Verify the Voltage presents and its level with a voltmeter.
+
+su root -c ./jtag_gdbserver -driver=tls -iotest
+
+# or 
+
+sudo ./jtag_gdbserver -driver=tls -iotest
+
+# if and only if all JTAG signals seems to be correct
+# try a test-scenario
+
+sudo ./jtag_gdbserver -driver=tls -testjtag 0,1,2
+
+# if this seems to be reasonable, too
+# you may try the gdbserver
+
+sudo ./jtag_gdbserver -driver tls :1234
+
+# start debugger
+
+arm-elf-gdb
+
+# this is a (useless) example session
+(gdb) target remote :1234
+Remote debugging using :1234
+0x00000000 in ?? ()
+(gdb) monitor SysInfo
+embedded ICE revision 4
+endian:       little
+vendor:       vendor unknown
+core:         ARM7TDMI revision 4
+memory type:  unknown
+capability:   unknown
+without Coprocessor CP15
+(gdb) monitor MemMap.MaxNum= 2
+(gdb) monitor MemMap.MaxEntrys[0]= 64
+(gdb) monitor MemMap[0][0]= rom,32, 0x0,  128 KByte
+(gdb) monitor MemMap[0][1]= sfa,32, 0x3fff8000, 36 Byte
+(gdb) monitor MemMap[0][2]= ram,32, 0x40000000, 63 KByte
+(gdb) monitor MemMap[0][3]= work,32, 0x4000fc00, 1024 Byte
+(gdb) monitor MemMap[0][4]= rom,32, 0x7FFFe000, 8 KByte
+(gdb) monitor MemMap[0][5]= sfa,32, 0xE0000000, 2 MByte
+(gdb) monitor MemMap[0][6]= sfa,32, 0xFFE00000, 2 MByte
+(gdb) monitor CmdSequence.MaxNum= 4
+(gdb) monitor CmdSequence.MaxEntrys[0]= 3
+(gdb) monitor CmdSequence.MaxEntrys[1]= 1
+(gdb) monitor CmdSequence[1][0]= 32, 0xe01fc040 , 1
+(gdb) monitor CmdSequence.MaxEntrys[2]= 1
+(gdb) monitor CmdSequence[2][0]= 32, 0xe01fc040 , 2
+(gdb) monitor CmdSequence.MaxEntrys[3]= 1
+(gdb) monitor CmdSequence[3][0]= 32, 0xe01fc040 , 0
+(gdb) monitor modeWorkspace = 1
+(gdb) monitor UseMemMap[0]
+(gdb) monitor cmd 1
+(gdb) monitor LPCfrequence = 14745
+(gdb) p/x $pc
+$1 = 0x0
+(gdb) x/10i $pc
+0x0:    b       0x44
+0x4:    ldr     pc, [pc, #24]   ; 0x24
+0x8:    ldr     pc, [pc, #24]   ; 0x28
+0xc:    ldr     pc, [pc, #24]   ; 0x2c
+0x10:   ldr     pc, [pc, #24]   ; 0x30
+0x14:   strltb  r5, [r0], #-3937
+0x18:   ldr     pc, [pc, #24]   ; 0x38
+0x1c:   ldr     pc, [pc, #24]   ; 0x3c
+0x20:   undefined instruction 0xffffffff
+0x24:   andeq   r0, r0, r0, asr #32
+(gdb) x/10i 0x44
+0x44:   ldr     r3, [pc, #200]  ; 0x114
+0x48:   cmp     r3, #0  ; 0x0
+0x4c:   beq     0x4c
+0x50:   mov     sp, r3
+0x54:   mrs     r2, CPSR
+0x58:   tst     r2, #15 ; 0xf
+0x5c:   beq     0x5c
+0x60:   msr     CPSR_c, #219    ; 0xdb
+0x64:   mov     sp, r3
+0x68:   msr     CPSR_c, #215    ; 0xd7
+(gdb) si
+
+Program received signal SIGEMT, Emulation trap.
+0x00000044 in ?? ()
+(gdb) p/x $pc
+$2 = 0x44
+(gdb) info registers 
+r0             0x0      0
+r1             0x0      0
+r2             0x0      0
+r3             0x0      0
+r4             0x0      0
+r5             0x0      0
+r6             0x0      0
+r7             0x0      0
+r8             0x0      0
+r9             0x0      0
+r10            0x0      0
+r11            0x0      0
+r12            0x0      0
+sp             0x0      0
+lr             0x0      0
+pc             0x44     68
+fps            0x0      0
+cpsr           0xd3     211
+(gdb) x/4i $pc
+0x44:   ldr     r3, [pc, #200]  ; 0x114
+0x48:   cmp     r3, #0  ; 0x0
+0x4c:   beq     0x4c
+0x50:   mov     sp, r3
+(gdb) x/x 0x44 + 200 + 8
+0x114:  0x40004010
+(gdb) p/x $r3
+$3 = 0x0
+(gdb) si
+
+Program received signal SIGEMT, Emulation trap.
+0x00000048 in ?? ()
+(gdb) p/x $r3
+$4 = 0x40004010
+(gdb)
