@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 
 	FILE *Ifp,*ttt;
 	
-	if(argc != 2)
+	if(argc != 3)
 	{
 		printf("usage:./wav2txt XX.wav EEE.txt\n\t");
 		return 0;

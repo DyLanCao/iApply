@@ -1,0 +1,9 @@
+#include <stdio.h>
+
+const short array[4] = {0x1111,0x2222,0x3333,0x4444};
+short barray[4] = {0x1111,0x2222,0x3333,0x4444};
+short barray[4];
+
+int main()
+{
+}
