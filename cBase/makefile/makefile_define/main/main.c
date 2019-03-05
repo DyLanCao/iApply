@@ -1,10 +1,10 @@
 #include <stdio.h>
-//#include "user.h"
+#include "../user/user.h"
 
 int main(void)
 {
 	printf("hello world");
-	//user_process();
+	user_process();
 
 	return 0;
 }
