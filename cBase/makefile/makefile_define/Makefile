@@ -8,8 +8,8 @@ SUBDIRS=$(shell ls -l | grep ^d | awk '{if($$9 != "debug") print $$9}')
 #记住当前工程的根目录路径
 ROOT_DIR=$(shell pwd)
 
-#CFLAGS = -g -Wall -Os
-#INC = -I$(ROOT_DIR)/user/include 
+CFLAGS = -g -Wall -Os
+INC = -I$(ROOT_DIR)/user/include 
 
 #最终bin文件的名字，可以更改为自己需要的
 BIN=myapp
@@ -36,6 +36,6 @@ ECHO:
 #将c文件编译为o文件，并放在指定放置目标文件的目录中即OBJS_DIR
 $(CUR_OBJS):%.o:%.c
 	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@
-CLEAN:
+clean:
 	@rm $(OBJS_DIR)/*.o
 	@rm -rf $(BIN_DIR)/*
