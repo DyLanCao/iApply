@@ -854,7 +854,7 @@ int speech_iir_set_cfg(IIR_RUN_CFG_T* iir_run_cfg, const EqConfig *cfg)
                             cfg->param[i].fc / iir_run_cfg->sample_rate, 
                             cfg->param[i].Q, 
                             iir_run_cfg->coef[i].coefs);
-            IIR_TRACE("sample_rate = %d fc:%d Q:%d ", iir_run_cfg->sample_rate,cfg->param[i].fc,cfg->param[i].Q);
+            IIR_TRACE("sample_rate = %d fc:%f Q:%f ", iir_run_cfg->sample_rate,cfg->param[i].fc,cfg->param[i].Q);
         
         } else if (cfg->param[i].type == SPEECH_HIGH_SHELF) {
             // ASSERT(0, "[%s] IIR_TYPE_HIGH_SHELF is not supported", __func__);
@@ -886,7 +886,7 @@ int speech_iir_close(IIR_RUN_CFG_T* iir_run_cfg)
     {
         memset(iir_run_cfg->coef[i].history, 0, sizeof(iir_run_cfg->coef[i].history));
     }
-    TRACE("[%s] len = %d", __func__, sizeof(iir_run_cfg->coef[0].history)/sizeof(float));
+    TRACE("[%s] len = %f ", __func__, sizeof(iir_run_cfg->coef[0].history)/sizeof(float));
 
     TRACE("[%s] float = %f", __func__, (double)iir_run_cfg->coef[0].history[0][0]);
     TRACE("[%s] float = %f", __func__, (double)iir_run_cfg->coef[0].history[1][3]);

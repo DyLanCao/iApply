@@ -100,9 +100,6 @@ typedef struct {
 } IIR_RUN_CFG_T;
 
 
-//IIR_RUN_CFG_T EqState;
-//IIR_RUN_CFG_T speech_rx_eq_state;
-
 
 int speech_iir_open(IIR_RUN_CFG_T* iir_run_cfg, enum AUD_SAMPRATE_T sample_rate, enum AUD_BITS_T sample_bits, enum AUD_CHANNEL_NUM_T chan_num);
 int speech_iir_set_cfg(IIR_RUN_CFG_T* iir_run_cfg, const EqConfig *cfg);
