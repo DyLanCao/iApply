@@ -1,17 +1,38 @@
 #ifndef SPEECH_EQ_H
 #define SPEECH_EQ_H
 
-#include "speech_eq.h"
-#include <math.h>
+#include <stdio.h>
 
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "speech_eq.h"
 typedef signed int                          iir_sample_24bits_t;
 typedef signed short int                    iir_sample_16bits_t;
 
 #define IIR_TRACE                           printf
+#define TRACE                           printf
 
 #define PI                                  3.14159265358979
 
-#define NULL 0
+int32_t __SSAT(int32_t val, uint32_t sat)
+{
+  if ((sat >= 1U) && (sat <= 32U))
+  {
+    const int32_t max = (int32_t)((1U << (sat - 1U)) - 1U);
+    const int32_t min = -1 - max ;
+    if (val > max)
+    {
+      return max;
+    }
+    else if (val < min)
+    {
+      return min;
+    }
+  }
+  return val;
+}
 
 //static IIR_RUN_CFG_T iir_run_cfg;
 
@@ -77,13 +98,18 @@ static inline float convert_multiple_to_db(float multiple)
     return 20*(float)log10(multiple);
 }
 
+int aconvert_multiple_to_db(int multiple)
+{
+	int test = log(multiple);
+    return test;
+}
 // x = 10^(y/20)
 static inline float convert_db_to_multiple(float db)
 {
     return (float)pow(10, db/20);
 }
 
-static void iir_lp_coefs(float gain, float fn, float Q, float *coefs)
+void iir_lp_coefs(float gain, float fn, float Q, float *coefs)
 {
     float w0 = 2 * PI*fn;
     float alpha = (float)sin(w0) / (2 * Q);
@@ -102,6 +128,7 @@ static void iir_lp_coefs(float gain, float fn, float Q, float *coefs)
     coefs[4] = b1/a0;
     coefs[5] = b2/a0;
 }
+
 
 static void iir_hp_coefs(float gain, float fn, float Q, float *coefs)
 {
@@ -122,7 +149,7 @@ static void iir_hp_coefs(float gain, float fn, float Q, float *coefs)
     coefs[4] = b1/a0;
     coefs[5] = b2/a0;
 }
-#if 0
+
 static void iir_ls_coefs(float gain, float fn, float Q, float *coefs)
 {
     float A = (float)sqrt(pow(10, gain / 20));
@@ -222,14 +249,13 @@ static inline iir_sample_24bits_t iir_ssat_24bits(float in)
 
     return out;
 }
-
+#if 0
 // Optimize iir eq:
 // use fixed point
 // use arm function
 // delete value exchange(repeat 3 times, care first and last)
 // iir should be done in hw fir
 // history store local 
-#if 1
 int iir_run_16bits(IIR_RUN_CFG_T* iir_run_cfg, uint8_t *buf, int len)
 {
     iir_sample_16bits_t *iir_buf;
@@ -764,7 +790,7 @@ int speech_iir_run(IIR_RUN_CFG_T* iir_run_cfg, uint8_t *buf, uint32_t len)
     }
     else
     {
-        ASSERT(0, "[%s] bits(%d) is invalid", __func__, iir_run_cfg->sample_bits);
+        //ASSERT(0, "[%s] bits(%d) is invalid", __func__, iir_run_cfg->sample_bits);
     }
 
     return ret;
@@ -802,7 +828,7 @@ int speech_iir_open(IIR_RUN_CFG_T* iir_run_cfg, enum AUD_SAMPRATE_T sample_rate,
 int speech_iir_set_cfg(IIR_RUN_CFG_T* iir_run_cfg, const EqConfig *cfg)
 {
     // Check parameter
-    ASSERT(cfg->num < IIR_PARAM_NUM, "[%s] num(%d) is too large", __func__, cfg->num);
+    //ASSERT(cfg->num < IIR_PARAM_NUM, "[%s] num(%d) is too large", __func__, cfg->num);
 
     iir_run_cfg->num = cfg->num;
     iir_run_cfg->gain0 = convert_db_to_multiple(cfg->gain0);
@@ -847,7 +873,7 @@ int speech_iir_set_cfg(IIR_RUN_CFG_T* iir_run_cfg, const EqConfig *cfg)
                             cfg->param[i].Q, 
                             iir_run_cfg->coef[i].coefs);
         } else {
-            ASSERT(0, "[%s] %d is not supported", __func__, cfg->param[i].type);
+            //ASSERT(0, "[%s] %d is not supported", __func__, cfg->param[i].type);
         }
     }
 
@@ -868,7 +894,6 @@ int speech_iir_close(IIR_RUN_CFG_T* iir_run_cfg)
 }
 
 
-#endif
 
 /*
 EqState *eq_init(int32_t sample_rate, int32_t frame_size, const EqConfig *cfg)

@@ -7,6 +7,6 @@ all:$(SUBDIRS) $(CUR_OBJS)
 $(SUBDIRS):ECHO
 	make -C $@
 $(CUR_OBJS):%.o:%.c
-	$(CC) -c $^ -o -lm $(ROOT_DIR)/$(OBJS_DIR)/$@
+	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@ -lm
 ECHO:
 	@echo $(SUBDIRS)
