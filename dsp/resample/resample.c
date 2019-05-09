@@ -21,7 +21,7 @@ struct priv_t{
 
 struct priv_t *echo;
 /*
- * play file.wav 0.8 0.88 60 0.4
+ * play file.wav 0.8 0.88 60 0.4 
  * 0.8 in-gain
  * 0.88 out_gain
  * 60 delay
