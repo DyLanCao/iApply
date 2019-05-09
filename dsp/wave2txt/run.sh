@@ -1,1 +1,1 @@
-./wav2txt none.wav end.txt
+./wav2txt noised.wav noised.txt

@@ -86,16 +86,18 @@ def _traceback(D):
     return array(p), array(q)
 
 if __name__ == '__main__':
-    if 0: # 1-D numeric
+    if 1: # 1-D numeric
         from sklearn.metrics.pairwise import manhattan_distances
         x = [0, 0, 1, 1, 2, 4, 2, 1, 2, 0]
         y = [1, 1, 1, 2, 2, 2, 2, 3, 2, 0]
         dist_fun = manhattan_distances
+        print "hello 1-D"
     elif 0: # 2-D numeric
-        from sklearn.metrics.pairwise import euclidean_distances
-        x = [[0, 0], [0, 1], [1, 1], [1, 2], [2, 2], [4, 3], [2, 3], [1, 1], [2, 2], [0, 1]]
-        y = [[1, 0], [1, 1], [1, 1], [2, 1], [4, 3], [4, 3], [2, 3], [3, 1], [1, 2], [1, 0]]
+        #from sklearn.metrics.pairwise import euclidean_distances
+        #x = [[0, 0], [0, 1], [1, 1], [1, 2], [2, 2], [4, 3], [2, 3], [1, 1], [2, 2], [0, 1]]
+        #y = [[1, 0], [1, 1], [1, 1], [2, 1], [4, 3], [4, 3], [2, 3], [3, 1], [1, 2], [1, 0]]
         dist_fun = euclidean_distances
+        print "hello 1-D"
     else: # 1-D list of strings
         from nltk.metrics.distance import edit_distance
         #x = ['we', 'shelled', 'clams', 'for', 'the', 'chowder']

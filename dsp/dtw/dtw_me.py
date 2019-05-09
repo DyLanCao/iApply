@@ -139,47 +139,14 @@ testb = np.array([[ 1.76405235,  0.40015721,  1.97873798],
     [ 3.4105985 ,  5.55464207,  0.77393398]])
 
 
-
-def dtw(x, y, dist):
-    """ 
-        Computes Dynamic Time Warping (DTW) of two sequences.
-
-            :param array x: N1*M array
-                :param array y: N2*M array
-                    :param func dist: distance used as cost measure
-
-                        Returns the minimum distance, the cost matrix, the accumulated cost matrix, and the wrap path.
-                            """
-                                assert len(x)
-                                    assert len(y)
-                                        r, c = len(x), len(y)
-                                            D0 = zeros((r + 1, c + 1)) 
-                                                D0[0, 1:] = inf 
-                                                    D0[1:, 0] = inf 
-                                                        D1 = D0[1:, 1:] # view
-                                                            for i in range(r):
-                                                                for j in range(c):
-                                                                    D1[i, j] = dist(x[i], y[j])
-                                                                                            C = D1.copy()
-                                                                                                for i in range(r):
-                                                                                                    for j in range(c):
-                                                                                                        D1[i, j] += min(D0[i, j], D0[i, j+1], D0[i+1, j]) 
-                                                                                                                                if len(x)==1:
-                                                                                                                                    path = zeros(len(y)), range(len(y))
-                                                                                                                                elif len(y) == 1:
-                                                                                                                                    path = range(len(x)), zeros(len(x))
-                                                                                                                                else:
-                                                                                                                                    path = _traceback(D0)
-                                                                                                                                                                                return D1[-1, -1] / sum(D1.shape), C, D1, path
-
 s1 = [1, 2, 3, 4, 5, 5, 5, 4]  
-s2 = [3, 4, 5, 5, 5, 4]  
-s3 = [1, 2, 3, 4, 5, 5]  
+s2 = np.array([[10, 1, 10, 5, 5, 4]])  
+s3 = np.array([[1, 2, 3, 4, 5, 5]])  
 s4 = [2, 3, 4, 5, 5, 5]  
-val, path = idtw(testa, testb, dist_for_float)
+val, path = idtw(s2, s3, dist_for_float)
 print 'idtw distance between the two sounds:', val
 #display(s1, s2)
-dist, cost, acc_cost, path = dtw(testa, testb, dist=lambda x, y: norm(x - y, ord=2))
+dist, cost, acc_cost, path = dtw(s2, s3, dist=lambda x, y: norm(x - y, ord=1))
 #dist, cost, acc_cost, path = dtw(s2, s3)
 #val, path = dtw(s2, s3, dist=lambda x, y: norm(x - y, ord=1))
 print 'dtw distance between the two sounds:', dist
