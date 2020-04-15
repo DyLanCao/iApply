@@ -1,22 +1,48 @@
 #include <stdio.h>
-/* Position of the most significant bit of x */
-#define gap8_fl1(x)				(31 - __builtin_clz((x)))
+#include <time.h>
+
+#define NUM(x) x*x*x
+
+static inline int num_test(int x)
+{
+	return x*x*x;
+}
 
 static int array[32];
 int main()
 {
 	int test = 0xEFFFFFFF;
 	int cnt = 0;
+	long long num = 0,num1 = 0;
+    clock_t start, finish;
+	double duration;  
 
-	while(cnt <10)
+	start = clock(); 
+	while(cnt++ < 10000)
 	{
-		printf("test:%x gap8:%d \n",test,gap8_fl1(test));
-		test = test>>1;
-		cnt++;
+		num += NUM(cnt);	
+	
+	}
+	finish = clock(); 
+
+	duration = (double)(finish - start) / CLOCKS_PER_SEC;  
+	printf( "%f seconds \n\t", 1000*duration ); 
+
+	cnt = 0;
+	start = 0, finish = 0;
+
+	start = clock(); 
+	while(cnt++ < 10000)
+	{
+		num1 += num_test(cnt);
 	}
 
-	printf("test:%x gap8:%d \n",0,gap8_fl1(0));
-	printf("test:%x gap8:%d \n",1,gap8_fl1(1));
+	finish = clock(); 
+
+	duration = (double)(finish - start) / CLOCKS_PER_SEC;  
+	printf( "%f ms seconds \n\t", 1000*duration ); 
+
+	printf("num:%d num1:%d \n\t",num, num1);
 
 	return 0;
 }

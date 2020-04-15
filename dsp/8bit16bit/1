@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+
+void char2short(unsigned char* pchar, unsigned short* pshort)
+{
+  *pshort = (pchar[0] << 8) | pchar[1];
+}
+
+int main()
+{
+  unsigned char test[2];
+  unsigned short result = 0;
+
+  test[0] = 0xAB;
+  test[1] = 0xCD;
+  char2short(test, &result);
+  printf("%#X\n",result);
+  return 0;
+}

@@ -9,7 +9,8 @@ typedef unsigned char  U8;
 typedef unsigned int uint32_t;
 
 const unsigned char CN_POWER_ON [] = {
-#include "SAM16K.txt"
+//#include "SAM16K.txt"
+#include "SOUND_ANSWER.txt"
 };
 
 typedef enum

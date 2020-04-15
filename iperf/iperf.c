@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#if 0
+#if 1
 unsigned __int64 GetCycleCount()
 {
     __asm
@@ -17,7 +17,7 @@ int main()
 {
     unsigned long t1,t2;
     t1 = (unsigned long)GetCycleCount();
-    t1 = GetTickCount();
+    t1sd = aGetTickCount();
    while(int cnt++ < 1000000000);
 
     t2 = (unsigned long)GetCycleCount();

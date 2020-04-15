@@ -1,0 +1,20 @@
+
+#include <stdio.h>
+
+void test_func(void *test_val)
+{   
+        int tmp_val = 20;
+
+        test_val = tmp_val;
+}
+static int val = NULL;
+
+int main()
+{
+        
+    test_func((void*)&val);
+
+    printf("val is:%d\n\t",val);
+
+    return 0;
+}

@@ -47,13 +47,22 @@ const EqConfig speech_rx_eq_cfg = {
     .num    = 1,
     .param = {
         // high pass rang form 0.01 to 0.9 amplitude convert to value
-        //{SPEECH_PEAK, 9.0, 2000.0, 0.1},
-        {SPEECH_LOW_PASS, 0, 300, 0.01},
+        //{SPEECH_PEAK, -15.0, 6000.0, 0.1},
+        //{SPEECH_HIGH_PASS, 0, 2000.0, 0.1},
+         {SPEECH_LOW_PASS, 0, 6000, 0.2},
         // peak range from 0
        // {SPEECH_PEAK, 6.0, 300, 1},
 
     },
 };
+
+void buf_txt(short *buf,int len)
+{
+        for(int i=0; i < len; i++)
+        {
+                printf("%d,",buf[i]);
+        }
+}
 
 int main(int argc, char *argv[])
 {
@@ -95,8 +104,10 @@ int main(int argc, char *argv[])
     {
 
         pcmLen = fread(in_16k, sizeof(short), tempSize_16k, inFp);
-
+	
+	memset((unsigned char*)in_16k,0x01,2*pcmLen);
     	speech_iir_run(&speech_rx_eq_state, (unsigned char*)in_16k, pcmLen);
+	buf_txt(in_16k,pcmLen);
 	memcpy(out_16k,in_16k,pcmLen*sizeof(short));
 	count++;
         pcmLen = fwrite(out_16k, sizeof(short), pcmLen, outFp);

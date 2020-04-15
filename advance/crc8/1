@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <string.h>
+#include "secure.h"
+
+int main()
+{
+    unsigned char tsta[] = {'a','b','c','d'};
+    unsigned char tstb[] = {'a','b','c','d'};
+
+
+    unsigned char crc1,crc2;
+    printf("tsta len:%d ",strlen(tsta));
+    crc1 = crc8(tsta, strlen(tsta));
+    crc2 = crc8(tstb, strlen(tstb));
+
+    //printf("crc1:%s crc2:%s",crc1,crc2);
+
+
+    return 0;
+        
+        
+}

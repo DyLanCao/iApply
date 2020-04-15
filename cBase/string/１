@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+
+        unsigned char test = 'a';
+        string testb = "hello world";
+        
+        printf("test:%s",testb);
+
+        return 0;
+}

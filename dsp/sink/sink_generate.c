@@ -18,12 +18,12 @@ int main(int argc, char** argv)
 	Ifp = fopen(argv[1],"w");
 
 	double f = 1;
-	double fs = 48000;
+	double fs = 16000;
 	double db = -10.0f;
 	double duration = 1;
 	double incr = 2 * pi * f / fs ;// 數字頻率，也是相鄰兩個採樣點的變化的弧度
 	//double A = powf(10,db / 20); // 波形的最大幅度值
-	short A = 1000;// 波形的最大幅度值
+	short A = 32000;// 波形的最大幅度值
 	short* frame = (short*)malloc(sizeof(short)*duration*fs);
 	//printf("%d",(int)(duration*fs));
 
@@ -31,7 +31,10 @@ int main(int argc, char** argv)
 	for(int i=0; i < (int)(duration*fs); i++)
 	{
 		frame[i] = A*sin(i * incr);
-	
+		if((i%2000) == 0)
+		{
+			printf("i:%d value:%d \n\t",i,frame[i]);
+		}
 	}
 
 	fwrite(frame,sizeof(short),duration*fs,Ifp);

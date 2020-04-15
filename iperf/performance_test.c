@@ -9,7 +9,7 @@
 #define rdtsc(low,high) __asm__ __volatile__("rdtsc" : "=a" (low), "=d" (high))
 
 #ifdef GLOBAL_NUM
-static char array[1000];
+static char array[100000000000000000012222222222222];
 #endif
 
 typedef unsigned long long cycles_t;
@@ -41,7 +41,6 @@ void mem_alloc(void)
 int main()
 {
 	float mhz;
-	//mhz = get_cpu_mhz();
 	mhz = 780;
 	cycles_t c1, c2;
 
@@ -63,7 +62,7 @@ int main()
 		sleep(1);
 		c2 = get_cycles();
 		tmp = (float)(c2 - c1);
-		printf("%f %lf , 1 sec = %f usec \n",tmp,mhz, tmp/mhz);
+		printf("this is a test %f %lf , 1 sec = %f usec \n",tmp,mhz, (float)tmp/mhz);
 	}
 
 	return 0;

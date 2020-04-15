@@ -127,6 +127,7 @@ void iir_lp_coefs(float gain, float fn, float Q, float *coefs)
     coefs[3] = b0/a0;
     coefs[4] = b1/a0;
     coefs[5] = b2/a0;
+    printf("coef1:%f coef2:%f coef3:%f coef4:%f coef5:%f\n\t",(double)coefs[1],(double)coefs[2],(double)coefs[3],(double)coefs[4],(double)coefs[5]);
 }
 
 
@@ -249,7 +250,7 @@ static inline iir_sample_24bits_t iir_ssat_24bits(float in)
 
     return out;
 }
-#if 0
+#if 1
 // Optimize iir eq:
 // use fixed point
 // use arm function
@@ -834,8 +835,8 @@ int speech_iir_set_cfg(IIR_RUN_CFG_T* iir_run_cfg, const EqConfig *cfg)
     iir_run_cfg->gain0 = convert_db_to_multiple(cfg->gain0);
     iir_run_cfg->gain1 = convert_db_to_multiple(cfg->gain1);
 
-    IIR_TRACE("[%s] gain0 = %f, gain1 = %f", __func__, (double)iir_run_cfg->gain0, (double)iir_run_cfg->gain1);
-    IIR_TRACE("[%s] len = %d", __func__, iir_run_cfg->num);
+    IIR_TRACE("[%s] gain0 = %f, gain1 = %f \n\t", __func__, (double)iir_run_cfg->gain0, (double)iir_run_cfg->gain1);
+    IIR_TRACE("[%s] len = %d \n\t", __func__, iir_run_cfg->num);
 
 
 
@@ -854,7 +855,7 @@ int speech_iir_set_cfg(IIR_RUN_CFG_T* iir_run_cfg, const EqConfig *cfg)
                             cfg->param[i].fc / iir_run_cfg->sample_rate, 
                             cfg->param[i].Q, 
                             iir_run_cfg->coef[i].coefs);
-            IIR_TRACE("sample_rate = %d fc:%f Q:%f ", iir_run_cfg->sample_rate,cfg->param[i].fc,cfg->param[i].Q);
+            IIR_TRACE("sample_rate = %d fc:%d Q:%d ", iir_run_cfg->sample_rate,cfg->param[i].fc,cfg->param[i].Q);
         
         } else if (cfg->param[i].type == SPEECH_HIGH_SHELF) {
             // ASSERT(0, "[%s] IIR_TYPE_HIGH_SHELF is not supported", __func__);

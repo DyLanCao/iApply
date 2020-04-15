@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main()
+{
+
+        unsigned char test = 'a';
+        
+        printf("test:%s",test);
+
+        return 0;
+}

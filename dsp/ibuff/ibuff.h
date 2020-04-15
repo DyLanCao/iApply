@@ -8,8 +8,10 @@ extern "C" {
 */
 
 const unsigned char CN_POWER_ON [] = {
-#include "SAM16K.txt"
+//#include "SAM16K.txt"
+#include "SOUND_ANSWER.txt"
 };
+
 
 extern int ibuff_init(void);
 extern void ibuff_process(short* signal_in, short* signal_out, int in_length);

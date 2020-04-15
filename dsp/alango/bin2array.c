@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 
     n_bin = fread(buf, sizeof(unsigned int), BUF_SIZE, pf_bin);
 
-    sprintf(s, "unsigned char %s[%d] = \r\n{", argv[ARG_BINARY_FILE], n_bin);
+    sprintf(s, "unsigned name is test char %s[%d] = \r\n{", argv[ARG_BINARY_FILE], n_bin);
     fwrite(s, 1, strlen(s), pf_txt);
 
     for (i = 0; i < n_bin; i++)
