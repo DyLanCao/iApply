@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+typedef struct  
+{
+    int arr;
+    int brr;
+}test_array;
+
+test_array i_test;
+
+void test(test_array *btest)
+{
+    btest->brr = 20;
+
+    printf("btest->brr:%d ",btest->brr);
+
+}
+int main()
+{
+    //test_array *btest;
+    i_test.arr = 10;
+    
+    test(&i_test);
+
+    printf("i_test.arr:%d ",i_test.arr);
+
+    return 0;
+}
